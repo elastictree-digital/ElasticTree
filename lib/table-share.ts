@@ -1,5 +1,5 @@
 /** Public demo URL for the Table Share® interactive dashboard app. */
-export const TABLE_SHARE_DEMO_URL = "https://elasticsunil.shinyapps.io/TS_Demo/";
+export const TABLE_SHARE_DEMO_URL = "https://table-share-production.up.railway.app/";
 
 export const tableShareStats = [
   { val: "3,468", label: "Households", accent: "#2dd4bf" },
