@@ -5,8 +5,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      // Hidden Ethos Pulse pilot — path-proxied, not marketed
-      disallow: ["/ethos-pulse", "/ethos-pulse/"],
+      // Hidden pilots — path-proxied, not marketed
+      disallow: [
+        "/ethos-pulse",
+        "/ethos-pulse/",
+        "/tscribe",
+        "/tscribe/",
+      ],
     },
     sitemap: "https://www.elastictree.com/sitemap.xml",
   };
