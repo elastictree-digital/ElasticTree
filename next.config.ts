@@ -24,8 +24,8 @@ const nextConfig: NextConfig = {
       { source: "/services", destination: "/capabilities", permanent: true },
       { source: "/ai-capabilities", destination: "/capabilities", permanent: true },
       { source: "/about", destination: "/", permanent: true },
-      // Canonical marketing path (user-facing hidden URL)
-      { source: "/qual-view", destination: "/Qual-view", permanent: false },
+      // Note: do not redirect /qual-view → /Qual-view — Vercel path matching
+      // is case-insensitive and that redirect loops on /Qual-view itself.
     ];
   },
   async rewrites() {
