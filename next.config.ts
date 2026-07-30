@@ -5,7 +5,7 @@ import path from "path";
 const ETHOS_PULSE_ORIGIN =
   process.env.ETHOS_PULSE_ORIGIN?.replace(/\/$/, "") || "https://ethos-pulse.vercel.app";
 
-/** Hidden ETScribe pilot — Railway, proxied, not linked from marketing nav. */
+/** Hidden TScribe pilot — Railway, proxied, not linked from marketing nav. */
 const TSCRIBE_ORIGIN =
   process.env.TSCRIBE_ORIGIN?.replace(/\/$/, "") ||
   "https://web-production-b8066.up.railway.app";
@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
         source: "/ethos-pulse/:path*",
         destination: `${ETHOS_PULSE_ORIGIN}/ethos-pulse/:path*`,
       },
-      // Canonical ETScribe studio — Vercel path matching is case-insensitive,
+      // Canonical TScribe studio — Vercel path matching is case-insensitive,
       // so one rewrite covers /TSCRIBE and /tscribe.
       {
         source: "/TSCRIBE",

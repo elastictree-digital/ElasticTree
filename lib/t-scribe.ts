@@ -1,4 +1,4 @@
-/** ETScribe™ — research transcription product (Elastic Tree). */
+/** TScribe™ — research transcription product (Elastic Tree). */
 
 export const TSCRIBE_STUDIO_URL =
   process.env.NEXT_PUBLIC_TSCRIBE_STUDIO_URL ??

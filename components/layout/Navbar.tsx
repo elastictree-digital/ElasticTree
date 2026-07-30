@@ -65,7 +65,7 @@ export default function Navbar() {
           href={isAiGaze ? "/ai-gaze" : isTScribe ? "/t-scribe" : "/"}
           className="relative z-10 shrink-0"
           aria-label={
-            isAiGaze ? "AI Gaze home" : isTScribe ? "ETScribe home" : "Elastic Tree home"
+            isAiGaze ? "AI Gaze home" : isTScribe ? "TScribe home" : "Elastic Tree home"
           }
         >
           {isAiGaze ? (
