@@ -1,14 +1,14 @@
-/** TScribe™ — research transcription product (Elastic Tree). */
+/** ETScribe™ — research transcription product (Elastic Tree). */
 
 export const TSCRIBE_STUDIO_URL =
   process.env.NEXT_PUBLIC_TSCRIBE_STUDIO_URL ??
-  "https://www.elastictree.com/tscribe";
+  "https://www.elastictree.com/TSCRIBE";
 
 export const tscribeStats = [
   { val: "99+", label: "Whisper languages", accent: "#e8a820" },
   { val: "DI / FGD", label: "Moderator · Respondent", accent: "#2dd4bf" },
-  { val: "4 steps", label: "Upload → Report → Export", accent: "#38bdf8" },
-  { val: "Whisper-1", label: "High-end OpenAI engine", accent: "#a78bfa" },
+  { val: "5 steps", label: "Project → Upload → Export", accent: "#38bdf8" },
+  { val: "GPT-4o", label: "Best for Indian languages", accent: "#a78bfa" },
 ] as const;
 
 export const tscribeDeliverables = [
@@ -28,7 +28,7 @@ export const tscribeInsights = [
   },
   {
     title: "From audio to debrief",
-    desc: "One studio for upload, edit, research report, and export — without file-shuffling across tools.",
+    desc: "Create a project and folder first, then upload, edit, report, and export — without file-shuffling.",
     accent: "#38bdf8",
   },
   {

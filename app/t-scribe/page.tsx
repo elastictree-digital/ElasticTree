@@ -13,23 +13,23 @@ import {
 import { ArrowRight, Check, Mic2, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "TScribe™ | Research Transcription",
+  title: "ETScribe™ | Research Transcription",
   description:
-    "TScribe™ — Elastic Tree research transcription. Whisper upload, Moderator/Respondent roles, projects & folders, qualitative reports, and DOCX/PDF export.",
+    "ETScribe™ — Elastic Tree research transcription. Whisper upload, Moderator/Respondent roles, projects & folders, qualitative reports, and DOCX/PDF export.",
   robots: {
     index: false,
     follow: false,
   },
 };
 
-export default function TScribePage() {
+export default function ETScribePage() {
   return (
     <>
       <PageHero
         eyebrow="Qualitative Research · Transcription Studio"
         title={
           <>
-            TScribe<span className="text-gradient-amber">™</span>
+            ETScribe<span className="text-gradient-amber">™</span>
           </>
         }
         subtitle="From recording to research-ready in one studio. Upload DIs and FGDs — get Moderator / Respondent transcripts, editable studios, and Elastic Tree–style research reports powered by OpenAI Whisper."
@@ -70,7 +70,7 @@ export default function TScribePage() {
           <div className="highlight-panel section-stack-sm">
             <div className="flex items-center gap-2.5">
               <Mic2 size={20} className="text-[var(--amber)]" aria-hidden />
-              <p className="text-title">How TScribe™ works</p>
+              <p className="text-title">How ETScribe™ works</p>
             </div>
             <p className="text-body-sm">
               OpenAI Whisper-1 produces timed segments. A research-aware pass labels
@@ -87,7 +87,7 @@ export default function TScribePage() {
       <section className="section-py-compact section-flow flow-tint-amber !pb-8 md:!pb-10">
         <div className="page-content">
           <SectionHeader
-            label="Why TScribe"
+            label="Why ETScribe"
             title="Qual research deserves better than Speaker 1 / Speaker 2"
             subtitle="Roles, structure, and reports that match how Elastic Tree delivers insight."
             className="mb-10"
@@ -108,7 +108,7 @@ export default function TScribePage() {
       <section className="section-py-compact page-content !pt-8 md:!pt-10">
         <SectionHeader
           label="Built For"
-          title="Where teams use TScribe™"
+          title="Where teams use ETScribe™"
           subtitle="From depth interviews to multi-market FGDs — the same research lens."
           className="mb-10"
         />
@@ -128,7 +128,7 @@ export default function TScribePage() {
         <div className="page-content">
           <SectionHeader
             label="Pricing"
-            title="Choose how your team uses TScribe™"
+            title="Choose how your team uses ETScribe™"
             subtitle="Transparent SaaS plans · Pilot studio access available"
             className="mb-10"
           />
@@ -193,7 +193,7 @@ export default function TScribePage() {
             From fieldwork audio to client-ready insight — without the shuffle.
           </h2>
           <p className="text-lead max-w-lg">
-            TScribe™ is your research transcription studio — roles, folders, reports, and
+            ETScribe™ is your research transcription studio — roles, folders, reports, and
             exports in one Elastic Tree product.
           </p>
           <div className="flex flex-wrap gap-3 pt-1">
@@ -205,7 +205,7 @@ export default function TScribePage() {
             </a>
           </div>
           <p className="text-body-sm text-slate-400">
-            Launch Studio → access password → TScribe dashboard
+            Launch Studio → access password → ETScribe dashboard
           </p>
         </div>
       </section>

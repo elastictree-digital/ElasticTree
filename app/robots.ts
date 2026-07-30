@@ -11,6 +11,8 @@ export default function robots(): MetadataRoute.Robots {
         "/ethos-pulse/",
         "/tscribe",
         "/tscribe/",
+        "/TSCRIBE",
+        "/TSCRIBE/",
         "/t-scribe",
         "/t-scribe/",
       ],

@@ -5,7 +5,7 @@ import path from "path";
 const ETHOS_PULSE_ORIGIN =
   process.env.ETHOS_PULSE_ORIGIN?.replace(/\/$/, "") || "https://ethos-pulse.vercel.app";
 
-/** Hidden TScribe pilot — Railway, proxied, not linked from marketing nav. */
+/** Hidden ETScribe pilot — Railway, proxied, not linked from marketing nav. */
 const TSCRIBE_ORIGIN =
   process.env.TSCRIBE_ORIGIN?.replace(/\/$/, "") ||
   "https://web-production-b8066.up.railway.app";
@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
       { source: "/services", destination: "/capabilities", permanent: true },
       { source: "/ai-capabilities", destination: "/capabilities", permanent: true },
       { source: "/about", destination: "/", permanent: true },
+      // Canonical studio URL is /TSCRIBE
+      { source: "/tscribe", destination: "/TSCRIBE", permanent: false },
+      { source: "/tscribe/:path*", destination: "/TSCRIBE/:path*", permanent: false },
+      { source: "/TScribe", destination: "/TSCRIBE", permanent: false },
+      { source: "/TScribe/:path*", destination: "/TSCRIBE/:path*", permanent: false },
     ];
   },
   async rewrites() {
@@ -32,12 +37,12 @@ const nextConfig: NextConfig = {
         destination: `${ETHOS_PULSE_ORIGIN}/ethos-pulse/:path*`,
       },
       {
-        source: "/tscribe",
-        destination: `${TSCRIBE_ORIGIN}/tscribe`,
+        source: "/TSCRIBE",
+        destination: `${TSCRIBE_ORIGIN}/TSCRIBE`,
       },
       {
-        source: "/tscribe/:path*",
-        destination: `${TSCRIBE_ORIGIN}/tscribe/:path*`,
+        source: "/TSCRIBE/:path*",
+        destination: `${TSCRIBE_ORIGIN}/TSCRIBE/:path*`,
       },
     ];
   },

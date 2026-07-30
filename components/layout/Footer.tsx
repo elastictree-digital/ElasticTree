@@ -26,7 +26,7 @@ const tScribeNav = [
   { label: "Overview", href: "/t-scribe" },
   { label: "Features", href: "/t-scribe#features" },
   { label: "Pricing", href: "/t-scribe#pricing" },
-  { label: "Studio", href: "https://www.elastictree.com/tscribe" },
+  { label: "Studio", href: "https://www.elastictree.com/TSCRIBE" },
 ];
 
 const socialIcons = {
@@ -146,7 +146,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-8 border-t border-white/[0.06]">
           <p className="text-caption normal-case">
             © {new Date().getFullYear()}{" "}
-            {isAiGaze ? "AI Gaze™" : isTScribe ? "TScribe™ · Elastic Tree" : "Elastic Tree Research"}
+            {isAiGaze ? "AI Gaze™" : isTScribe ? "ETScribe™ · Elastic Tree" : "Elastic Tree Research"}
           </p>
           <p className="text-caption normal-case text-slate-500">
             {isAiGaze

@@ -28,7 +28,7 @@ const tScribeLinks = [
   { href: "/t-scribe", label: "Overview" },
   { href: "/t-scribe#features", label: "Features" },
   { href: "/t-scribe#pricing", label: "Pricing" },
-  { href: "https://www.elastictree.com/tscribe", label: "Studio", external: true },
+  { href: "https://www.elastictree.com/TSCRIBE", label: "Studio", external: true },
 ];
 
 export default function Navbar() {
@@ -65,7 +65,7 @@ export default function Navbar() {
           href={isAiGaze ? "/ai-gaze" : isTScribe ? "/t-scribe" : "/"}
           className="relative z-10 shrink-0"
           aria-label={
-            isAiGaze ? "AI Gaze home" : isTScribe ? "TScribe home" : "Elastic Tree home"
+            isAiGaze ? "AI Gaze home" : isTScribe ? "ETScribe home" : "Elastic Tree home"
           }
         >
           {isAiGaze ? (
@@ -121,7 +121,7 @@ export default function Navbar() {
             />
           ) : isTScribe ? (
             <a
-              href="https://www.elastictree.com/tscribe"
+              href="https://www.elastictree.com/TSCRIBE"
               className="btn-primary text-sm !py-2.5 !px-5"
             >
               Launch Studio
@@ -199,7 +199,7 @@ export default function Navbar() {
                   />
                 ) : isTScribe ? (
                   <a
-                    href="https://www.elastictree.com/tscribe"
+                    href="https://www.elastictree.com/TSCRIBE"
                     className="btn-primary w-full justify-center"
                   >
                     Launch Studio
