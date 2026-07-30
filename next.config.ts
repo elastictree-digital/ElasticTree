@@ -19,11 +19,6 @@ const nextConfig: NextConfig = {
       { source: "/services", destination: "/capabilities", permanent: true },
       { source: "/ai-capabilities", destination: "/capabilities", permanent: true },
       { source: "/about", destination: "/", permanent: true },
-      // Canonical studio URL is /TSCRIBE
-      { source: "/tscribe", destination: "/TSCRIBE", permanent: false },
-      { source: "/tscribe/:path*", destination: "/TSCRIBE/:path*", permanent: false },
-      { source: "/TScribe", destination: "/TSCRIBE", permanent: false },
-      { source: "/TScribe/:path*", destination: "/TSCRIBE/:path*", permanent: false },
     ];
   },
   async rewrites() {
@@ -36,6 +31,8 @@ const nextConfig: NextConfig = {
         source: "/ethos-pulse/:path*",
         destination: `${ETHOS_PULSE_ORIGIN}/ethos-pulse/:path*`,
       },
+      // Canonical ETScribe studio — Vercel path matching is case-insensitive,
+      // so one rewrite covers /TSCRIBE and /tscribe.
       {
         source: "/TSCRIBE",
         destination: `${TSCRIBE_ORIGIN}/TSCRIBE`,
