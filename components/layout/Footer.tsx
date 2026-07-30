@@ -29,6 +29,13 @@ const tScribeNav = [
   { label: "Studio", href: "https://www.elastictree.com/TSCRIBE" },
 ];
 
+const qualViewNav = [
+  { label: "Overview", href: "/Qual-view" },
+  { label: "Features", href: "/Qual-view#features" },
+  { label: "Pricing", href: "/Qual-view#pricing" },
+  { label: "Studio", href: "https://www.elastictree.com/qualview" },
+];
+
 const socialIcons = {
   LinkedIn: LinkedInIcon,
   Instagram: InstagramIcon,
@@ -36,9 +43,19 @@ const socialIcons = {
 
 export default function Footer() {
   const pathname = usePathname();
+  const pathLower = (pathname || "").toLowerCase();
   const isAiGaze = pathname === "/ai-gaze" || pathname.startsWith("/ai-gaze/");
   const isTScribe = pathname === "/t-scribe" || pathname.startsWith("/t-scribe/");
-  const nav = isAiGaze ? aiGazeNav : isTScribe ? tScribeNav : siteNav;
+  const isQualView =
+    pathLower === "/qual-view" || pathLower.startsWith("/qual-view/");
+  const nav = isAiGaze
+    ? aiGazeNav
+    : isTScribe
+      ? tScribeNav
+      : isQualView
+        ? qualViewNav
+        : siteNav;
+  const isProductPilot = isAiGaze || isTScribe || isQualView;
 
   return (
     <footer className="border-t border-white/[0.06] section-flow flow-tint-blue">
@@ -55,9 +72,11 @@ export default function Footer() {
                 ? "Predictive eye tracking for packs, shelves, and ads — without hardware."
                 : isTScribe
                   ? "Research-grade transcription for DIs and FGDs — Whisper, roles, reports, and export."
-                  : "Market research for FMCG and food-service brands. Smart decisions, simply made — since 2014."}
+                  : isQualView
+                    ? "Live qualitative viewing room — moderator, respondents, observers, transcript, and ET PPTX."
+                    : "Market research for FMCG and food-service brands. Smart decisions, simply made — since 2014."}
             </p>
-            {!isAiGaze && !isTScribe && (
+            {!isProductPilot && (
               <div className="flex gap-2">
                 {socialLinks.map(({ label, href }) => {
                   const Icon = socialIcons[label as keyof typeof socialIcons];
@@ -94,7 +113,7 @@ export default function Footer() {
           <div className="md:col-span-4">
             <p className="text-caption normal-case mb-4">Contact</p>
             <div className="space-y-3">
-              {isAiGaze || isTScribe ? (
+              {isProductPilot ? (
                 <>
                   <a
                     href="mailto:sunil@elastictree.com"
@@ -146,14 +165,22 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-8 border-t border-white/[0.06]">
           <p className="text-caption normal-case">
             © {new Date().getFullYear()}{" "}
-            {isAiGaze ? "AI Gaze™" : isTScribe ? "TScribe™ · Elastic Tree" : "Elastic Tree Research"}
+            {isAiGaze
+              ? "AI Gaze™"
+              : isTScribe
+                ? "TScribe™ · Elastic Tree"
+                : isQualView
+                  ? "QualView · Elastic Tree"
+                  : "Elastic Tree Research"}
           </p>
           <p className="text-caption normal-case text-slate-500">
             {isAiGaze
               ? "Predictive Eye Tracking"
               : isTScribe
                 ? "Research Transcription"
-                : "Smart Decisions, Simply Made."}
+                : isQualView
+                  ? "Live Qualitative Viewing Room"
+                  : "Smart Decisions, Simply Made."}
           </p>
         </div>
       </div>

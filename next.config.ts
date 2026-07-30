@@ -10,6 +10,11 @@ const TSCRIBE_ORIGIN =
   process.env.TSCRIBE_ORIGIN?.replace(/\/$/, "") ||
   "https://web-production-b8066.up.railway.app";
 
+/** Hidden QualView pilot — Railway studio, proxied; marketing at /Qual-view. */
+const QUALVIEW_ORIGIN =
+  process.env.QUALVIEW_ORIGIN?.replace(/\/$/, "") ||
+  "https://web-production-c13b1.up.railway.app";
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
@@ -19,6 +24,8 @@ const nextConfig: NextConfig = {
       { source: "/services", destination: "/capabilities", permanent: true },
       { source: "/ai-capabilities", destination: "/capabilities", permanent: true },
       { source: "/about", destination: "/", permanent: true },
+      // Canonical marketing path (user-facing hidden URL)
+      { source: "/qual-view", destination: "/Qual-view", permanent: false },
     ];
   },
   async rewrites() {
@@ -40,6 +47,15 @@ const nextConfig: NextConfig = {
       {
         source: "/TSCRIBE/:path*",
         destination: `${TSCRIBE_ORIGIN}/TSCRIBE/:path*`,
+      },
+      // QualView studio app (basePath /qualview on Railway)
+      {
+        source: "/qualview",
+        destination: `${QUALVIEW_ORIGIN}/qualview`,
+      },
+      {
+        source: "/qualview/:path*",
+        destination: `${QUALVIEW_ORIGIN}/qualview/:path*`,
       },
     ];
   },

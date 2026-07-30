@@ -31,13 +31,29 @@ const tScribeLinks = [
   { href: "https://www.elastictree.com/TSCRIBE", label: "Studio", external: true },
 ];
 
+const qualViewLinks = [
+  { href: "/Qual-view", label: "Overview" },
+  { href: "/Qual-view#features", label: "Features" },
+  { href: "/Qual-view#pricing", label: "Pricing" },
+  { href: "https://www.elastictree.com/qualview", label: "Studio", external: true },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const pathLower = (pathname || "").toLowerCase();
   const isAiGaze = pathname === "/ai-gaze" || pathname.startsWith("/ai-gaze/");
   const isTScribe = pathname === "/t-scribe" || pathname.startsWith("/t-scribe/");
-  const links = isAiGaze ? aiGazeLinks : isTScribe ? tScribeLinks : siteLinks;
+  const isQualView =
+    pathLower === "/qual-view" || pathLower.startsWith("/qual-view/");
+  const links = isAiGaze
+    ? aiGazeLinks
+    : isTScribe
+      ? tScribeLinks
+      : isQualView
+        ? qualViewLinks
+        : siteLinks;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -62,10 +78,24 @@ export default function Navbar() {
     >
       <nav className="page-content h-16 flex items-center justify-between gap-4">
         <Link
-          href={isAiGaze ? "/ai-gaze" : isTScribe ? "/t-scribe" : "/"}
+          href={
+            isAiGaze
+              ? "/ai-gaze"
+              : isTScribe
+                ? "/t-scribe"
+                : isQualView
+                  ? "/Qual-view"
+                  : "/"
+          }
           className="relative z-10 shrink-0"
           aria-label={
-            isAiGaze ? "AI Gaze home" : isTScribe ? "TScribe home" : "Elastic Tree home"
+            isAiGaze
+              ? "AI Gaze home"
+              : isTScribe
+                ? "TScribe home"
+                : isQualView
+                  ? "QualView home"
+                  : "Elastic Tree home"
           }
         >
           {isAiGaze ? (
@@ -84,8 +114,13 @@ export default function Navbar() {
                 ? pathname === "/ai-gaze"
                 : href === "/t-scribe"
                   ? pathname === "/t-scribe"
-                  : pathname === href ||
-                    (href !== "/" && !href.includes("#") && !external && pathname.startsWith(href));
+                  : href === "/Qual-view"
+                    ? isQualView
+                    : pathname === href ||
+                      (href !== "/" &&
+                        !href.includes("#") &&
+                        !external &&
+                        pathname.startsWith(href));
             return (
               <li key={href}>
                 {external ? (
@@ -126,6 +161,13 @@ export default function Navbar() {
             >
               Launch Studio
             </a>
+          ) : isQualView ? (
+            <a
+              href="https://www.elastictree.com/qualview"
+              className="btn-primary text-sm !py-2.5 !px-5"
+            >
+              Launch Studio
+            </a>
           ) : (
             <Link href="/contact" className="btn-primary text-sm !py-2.5 !px-5">
               Get in Touch
@@ -161,11 +203,13 @@ export default function Navbar() {
                     ? pathname === "/ai-gaze"
                     : href === "/t-scribe"
                       ? pathname === "/t-scribe"
-                      : pathname === href ||
-                        (href !== "/" &&
-                          !href.includes("#") &&
-                          !external &&
-                          pathname.startsWith(href));
+                      : href === "/Qual-view"
+                        ? isQualView
+                        : pathname === href ||
+                          (href !== "/" &&
+                            !href.includes("#") &&
+                            !external &&
+                            pathname.startsWith(href));
                 return (
                   <li key={href}>
                     {external ? (
@@ -200,6 +244,13 @@ export default function Navbar() {
                 ) : isTScribe ? (
                   <a
                     href="https://www.elastictree.com/TSCRIBE"
+                    className="btn-primary w-full justify-center"
+                  >
+                    Launch Studio
+                  </a>
+                ) : isQualView ? (
+                  <a
+                    href="https://www.elastictree.com/qualview"
                     className="btn-primary w-full justify-center"
                   >
                     Launch Studio
