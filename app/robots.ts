@@ -11,6 +11,8 @@ export default function robots(): MetadataRoute.Robots {
         "/ethos-pulse/",
         "/tscribe",
         "/tscribe/",
+        "/t-scribe",
+        "/t-scribe/",
       ],
     },
     sitemap: "https://www.elastictree.com/sitemap.xml",

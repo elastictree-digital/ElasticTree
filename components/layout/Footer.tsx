@@ -22,6 +22,13 @@ const aiGazeNav = [
   { label: "Studio", href: "/ai-gaze#studio" },
 ];
 
+const tScribeNav = [
+  { label: "Overview", href: "/t-scribe" },
+  { label: "Features", href: "/t-scribe#features" },
+  { label: "Pricing", href: "/t-scribe#pricing" },
+  { label: "Studio", href: "https://www.elastictree.com/tscribe" },
+];
+
 const socialIcons = {
   LinkedIn: LinkedInIcon,
   Instagram: InstagramIcon,
@@ -30,7 +37,8 @@ const socialIcons = {
 export default function Footer() {
   const pathname = usePathname();
   const isAiGaze = pathname === "/ai-gaze" || pathname.startsWith("/ai-gaze/");
-  const nav = isAiGaze ? aiGazeNav : siteNav;
+  const isTScribe = pathname === "/t-scribe" || pathname.startsWith("/t-scribe/");
+  const nav = isAiGaze ? aiGazeNav : isTScribe ? tScribeNav : siteNav;
 
   return (
     <footer className="border-t border-white/[0.06] section-flow flow-tint-blue">
@@ -45,9 +53,11 @@ export default function Footer() {
             <p className="text-body-sm max-w-sm mb-6">
               {isAiGaze
                 ? "Predictive eye tracking for packs, shelves, and ads — without hardware."
-                : "Market research for FMCG and food-service brands. Smart decisions, simply made — since 2014."}
+                : isTScribe
+                  ? "Research-grade transcription for DIs and FGDs — Whisper, roles, reports, and export."
+                  : "Market research for FMCG and food-service brands. Smart decisions, simply made — since 2014."}
             </p>
-            {!isAiGaze && (
+            {!isAiGaze && !isTScribe && (
               <div className="flex gap-2">
                 {socialLinks.map(({ label, href }) => {
                   const Icon = socialIcons[label as keyof typeof socialIcons];
@@ -84,7 +94,7 @@ export default function Footer() {
           <div className="md:col-span-4">
             <p className="text-caption normal-case mb-4">Contact</p>
             <div className="space-y-3">
-              {isAiGaze ? (
+              {isAiGaze || isTScribe ? (
                 <>
                   <a
                     href="mailto:sunil@elastictree.com"
@@ -135,10 +145,15 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-8 border-t border-white/[0.06]">
           <p className="text-caption normal-case">
-            © {new Date().getFullYear()} {isAiGaze ? "AI Gaze™" : "Elastic Tree Research"}
+            © {new Date().getFullYear()}{" "}
+            {isAiGaze ? "AI Gaze™" : isTScribe ? "TScribe™ · Elastic Tree" : "Elastic Tree Research"}
           </p>
           <p className="text-caption normal-case text-slate-500">
-            {isAiGaze ? "Predictive Eye Tracking" : "Smart Decisions, Simply Made."}
+            {isAiGaze
+              ? "Predictive Eye Tracking"
+              : isTScribe
+                ? "Research Transcription"
+                : "Smart Decisions, Simply Made."}
           </p>
         </div>
       </div>
