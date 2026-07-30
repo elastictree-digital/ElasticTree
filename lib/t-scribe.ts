@@ -50,7 +50,7 @@ export const tscribeApplications = [
 export const tscribePricing = [
   {
     name: "Starter",
-    price: "₹2,999",
+    price: "₹1,599",
     period: "/ month",
     blurb: "For solo researchers and small insight teams.",
     features: [
@@ -65,7 +65,7 @@ export const tscribePricing = [
   },
   {
     name: "Growth",
-    price: "₹7,999",
+    price: "₹3,999",
     period: "/ month",
     blurb: "For agencies and multi-market fieldwork.",
     features: [
@@ -80,7 +80,7 @@ export const tscribePricing = [
   {
     name: "Enterprise",
     price: "Custom",
-    period: "from ₹19,999/mo",
+    period: "from ₹14,399/mo",
     blurb: "For high-volume studies, SLAs, and white-label.",
     features: [
       "High-volume / unlimited hours",
