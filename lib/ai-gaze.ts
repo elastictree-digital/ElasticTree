@@ -1,6 +1,6 @@
-/** Public studio URL for the AI Gaze™ Streamlit / SaaS app. */
+/** Public studio URL for the AI Gaze™ Streamlit / SaaS app (Railway). */
 export const AI_GAZE_STUDIO_URL =
-  process.env.NEXT_PUBLIC_AI_GAZE_STUDIO_URL ?? "https://aigaze.streamlit.app";
+  process.env.NEXT_PUBLIC_AI_GAZE_STUDIO_URL ?? "https://aigaze-production.up.railway.app";
 
 export const aiGazeStats = [
   { val: "92%", label: "Accuracy vs lab ET", accent: "#e8a820" },
