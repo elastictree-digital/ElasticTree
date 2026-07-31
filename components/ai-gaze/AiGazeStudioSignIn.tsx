@@ -1,86 +1,41 @@
 "use client";
 
-import { FormEvent, useEffect, useId, useState } from "react";
+import { useEffect } from "react";
 import { X } from "lucide-react";
 import { AI_GAZE_STUDIO_URL } from "@/lib/ai-gaze";
 
-/** Soft gate — same access password as the Streamlit studio. */
-export const STUDIO_PASSWORD =
-  process.env.NEXT_PUBLIC_AI_GAZE_ACCESS_PASSWORD ?? "elastic2026";
-
-export function openAiGazeDashboard(password: string) {
+export function openAiGazeDashboard() {
   const url = new URL(AI_GAZE_STUDIO_URL);
-  url.searchParams.set("access", password.trim());
+  url.searchParams.set("signin", "1");
   window.location.assign(url.toString());
 }
 
 export function AiGazeSignInForm({
   onSuccess,
-  inputId,
 }: {
   onSuccess?: () => void;
   inputId?: string;
 }) {
-  const autoId = useId();
-  const fieldId = inputId ?? `ai-gaze-pwd-${autoId}`;
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    setError("");
-    setSubmitting(true);
-
-    if (password.trim() !== STUDIO_PASSWORD) {
-      setError("Incorrect password. Please try again.");
-      setSubmitting(false);
-      return;
-    }
-
+  function go() {
     onSuccess?.();
-    openAiGazeDashboard(password);
+    openAiGazeDashboard();
   }
 
   return (
-    <form onSubmit={onSubmit} className="w-full">
+    <div className="w-full">
       <p className="font-display font-bold text-lg text-white mb-1">
         Sign in to AI Gaze Studio
       </p>
       <p className="text-body-sm text-slate-400 mb-5">
-        Enter your access password to open the analysis dashboard
+        Continue to sign in or register with your email on the analysis dashboard.
       </p>
 
-      <label htmlFor={fieldId} className="sr-only">
-        Password
-      </label>
-      <input
-        id={fieldId}
-        type="password"
-        name="password"
-        autoComplete="current-password"
-        autoFocus
-        placeholder="Enter access password"
-        value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-          if (error) setError("");
-        }}
-        className="w-full rounded-xl border border-white/[0.12] bg-[#090e2c]/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-[var(--amber)]/60 focus:ring-1 focus:ring-[var(--amber)]/40 mb-3"
-      />
-
-      {error && (
-        <p className="text-sm text-red-400 mb-3" role="alert">
-          {error}
-        </p>
-      )}
-
       <button
-        type="submit"
-        disabled={submitting || !password.trim()}
-        className="btn-primary btn-glow w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+        type="button"
+        onClick={go}
+        className="btn-primary btn-glow w-full justify-center"
       >
-        {submitting ? "Opening dashboard…" : "Sign in →"}
+        Continue →
       </button>
 
       <p className="text-center text-xs text-slate-500 mt-4">
@@ -91,8 +46,15 @@ export function AiGazeSignInForm({
         >
           Contact sales
         </a>
+        {" · "}
+        <a
+          href="/privacy"
+          className="text-slate-400 hover:text-[var(--amber)] hover:underline"
+        >
+          Privacy
+        </a>
       </p>
-    </form>
+    </div>
   );
 }
 

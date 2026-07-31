@@ -214,7 +214,7 @@ export default function TScribePage() {
             </a>
           </div>
           <p className="text-body-sm text-slate-400">
-            Launch Studio → access password → TScribe dashboard
+            Launch Studio → email sign-in → TScribe dashboard
           </p>
         </div>
       </section>

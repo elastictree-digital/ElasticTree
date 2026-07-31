@@ -17,6 +17,7 @@ const socialIcons = {
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", company: "", email: "", message: "" });
+  const [consent, setConsent] = useState(false);
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,11 +30,17 @@ export default function ContactPage() {
     setSubmitting(true);
     setError(null);
 
+    if (!consent) {
+      setError("Please agree to the Privacy Policy before sending.");
+      setSubmitting(false);
+      return;
+    }
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, consent: true }),
       });
       const data = await res.json().catch(() => ({}));
 
@@ -204,10 +211,28 @@ export default function ContactPage() {
                     disabled={submitting}
                   />
                 </div>
+                <label className="flex items-start gap-3 text-body-sm text-slate-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-1 rounded border-white/20 bg-white/5"
+                    required
+                    disabled={submitting}
+                  />
+                  <span>
+                    I agree that Elastic Tree may process my contact details to respond to this
+                    enquiry, as described in the{" "}
+                    <a href="/privacy" className="text-[var(--amber)] hover:underline">
+                      Privacy Policy
+                    </a>
+                    .
+                  </span>
+                </label>
                 <button
                   type="submit"
                   className="btn-primary w-full justify-center !rounded-xl"
-                  disabled={submitting}
+                  disabled={submitting || !consent}
                 >
                   <Send size={16} aria-hidden /> {submitting ? "Sending…" : "Send Message"}
                 </button>

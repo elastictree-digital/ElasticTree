@@ -226,7 +226,7 @@ export default function QualViewPage() {
             </a>
           </div>
           <p className="text-body-sm text-slate-400">
-            Launch Studio → access password → QualView lobby
+            Launch Studio → email sign-in → QualView lobby
           </p>
         </div>
       </section>

@@ -189,17 +189,31 @@ export default function Footer() {
                     ? "DataWiz · Elastic Tree"
                     : "Elastic Tree Research"}
           </p>
-          <p className="text-caption normal-case text-slate-500">
-            {isAiGaze
-              ? "Predictive Eye Tracking"
-              : isTScribe
-                ? "Research Transcription"
-                : isQualView
-                  ? "Live Qualitative Viewing Room"
-                  : isDataWiz
-                    ? "Crosstab Analysis Studio"
-                    : "Smart Decisions, Simply Made."}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link
+              href="/privacy"
+              className="text-caption normal-case text-slate-400 hover:text-[var(--amber)] transition-colors"
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-caption normal-case text-slate-400 hover:text-[var(--amber)] transition-colors"
+            >
+              Terms
+            </Link>
+            <p className="text-caption normal-case text-slate-500">
+              {isAiGaze
+                ? "Predictive Eye Tracking"
+                : isTScribe
+                  ? "Research Transcription"
+                  : isQualView
+                    ? "Live Qualitative Viewing Room"
+                    : isDataWiz
+                      ? "Crosstab Analysis Studio"
+                      : "Smart Decisions, Simply Made."}
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -5,6 +5,7 @@ type ContactPayload = {
   company?: string;
   email?: string;
   message?: string;
+  consent?: boolean;
 };
 
 export async function POST(request: Request) {
@@ -19,6 +20,13 @@ export async function POST(request: Request) {
   const company = body.company?.trim();
   const email = body.email?.trim();
   const message = body.message?.trim();
+
+  if (!body.consent) {
+    return Response.json(
+      { error: "Privacy consent is required to send this form." },
+      { status: 400 },
+    );
+  }
 
   if (!name || !company || !email || !message) {
     return Response.json({ error: "All fields are required." }, { status: 400 });
