@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -26,6 +27,16 @@ export default function DataWizPage() {
     <>
       <PageHero
         eyebrow="Quantitative Research · Crosstab Studio"
+        prefix={
+          <Image
+            src="/logo.png"
+            alt="Elastic Tree"
+            width={148}
+            height={27}
+            priority
+            className="mb-1 h-7 w-auto object-contain opacity-95"
+          />
+        }
         title={
           <>
             Data<span className="text-gradient-amber">Wiz</span>
