@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.85,
     },
-    // AI Gaze / QualView hidden from public nav for now — omit from sitemap
+    // AI Gaze / QualView / DataWiz hidden from public nav for now — omit from sitemap
     {
       url: `${BASE_URL}/casestudies`,
       lastModified: new Date(),

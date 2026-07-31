@@ -12,6 +12,7 @@ const siteNav = [
   { label: "Table Share", href: "/table-share" },
   // AI Gaze nav tab hidden for now — page remains at /ai-gaze
   // QualView nav tab hidden for now — page remains at /Qual-view
+  // DataWiz nav tab hidden for now — page remains at /data-wiz
   { label: "Case Studies", href: "/casestudies" },
   { label: "Contact", href: "/contact" },
 ];
@@ -37,6 +38,13 @@ const qualViewNav = [
   { label: "Studio", href: "https://www.elastictree.com/qualview" },
 ];
 
+const dataWizNav = [
+  { label: "Overview", href: "/data-wiz" },
+  { label: "Features", href: "/data-wiz#features" },
+  { label: "Pricing", href: "/data-wiz#pricing" },
+  { label: "Studio", href: "https://www.elastictree.com/datawiz" },
+];
+
 const socialIcons = {
   LinkedIn: LinkedInIcon,
   Instagram: InstagramIcon,
@@ -49,14 +57,18 @@ export default function Footer() {
   const isTScribe = pathname === "/t-scribe" || pathname.startsWith("/t-scribe/");
   const isQualView =
     pathLower === "/qual-view" || pathLower.startsWith("/qual-view/");
+  const isDataWiz =
+    pathLower === "/data-wiz" || pathLower.startsWith("/data-wiz/");
   const nav = isAiGaze
     ? aiGazeNav
     : isTScribe
       ? tScribeNav
       : isQualView
         ? qualViewNav
-        : siteNav;
-  const isProductPilot = isAiGaze || isTScribe || isQualView;
+        : isDataWiz
+          ? dataWizNav
+          : siteNav;
+  const isProductPilot = isAiGaze || isTScribe || isQualView || isDataWiz;
 
   return (
     <footer className="border-t border-white/[0.06] section-flow flow-tint-blue">
@@ -75,7 +87,9 @@ export default function Footer() {
                   ? "Research-grade transcription for DIs and FGDs — Whisper, roles, reports, and export."
                   : isQualView
                     ? "Live qualitative viewing room — moderator, respondents, observers, transcript, and ET PPTX."
-                    : "Market research for FMCG and food-service brands. Smart decisions, simply made — since 2014."}
+                    : isDataWiz
+                      ? "Crosstab studio — stub × banner tables, nested breaks, significance, and Excel packs."
+                      : "Market research for FMCG and food-service brands. Smart decisions, simply made — since 2014."}
             </p>
             {!isProductPilot && (
               <div className="flex gap-2">
@@ -172,7 +186,9 @@ export default function Footer() {
                 ? "TScribe™ · Elastic Tree"
                 : isQualView
                   ? "QualView · Elastic Tree"
-                  : "Elastic Tree Research"}
+                  : isDataWiz
+                    ? "DataWiz · Elastic Tree"
+                    : "Elastic Tree Research"}
           </p>
           <p className="text-caption normal-case text-slate-500">
             {isAiGaze
@@ -181,7 +197,9 @@ export default function Footer() {
                 ? "Research Transcription"
                 : isQualView
                   ? "Live Qualitative Viewing Room"
-                  : "Smart Decisions, Simply Made."}
+                  : isDataWiz
+                    ? "Crosstab Analysis Studio"
+                    : "Smart Decisions, Simply Made."}
           </p>
         </div>
       </div>

@@ -15,6 +15,11 @@ const QUALVIEW_ORIGIN =
   process.env.QUALVIEW_ORIGIN?.replace(/\/$/, "") ||
   "https://web-production-c13b1.up.railway.app";
 
+/** Hidden DataWiz pilot — Railway studio, proxied; marketing at /data-wiz. */
+const DATAWIZ_ORIGIN =
+  process.env.DATAWIZ_ORIGIN?.replace(/\/$/, "") ||
+  "https://datawiz.up.railway.app";
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
@@ -56,6 +61,15 @@ const nextConfig: NextConfig = {
       {
         source: "/qualview/:path*",
         destination: `${QUALVIEW_ORIGIN}/qualview/:path*`,
+      },
+      // DataWiz studio app (basePath /datawiz on Railway)
+      {
+        source: "/datawiz",
+        destination: `${DATAWIZ_ORIGIN}/datawiz`,
+      },
+      {
+        source: "/datawiz/:path*",
+        destination: `${DATAWIZ_ORIGIN}/datawiz/:path*`,
       },
     ];
   },
