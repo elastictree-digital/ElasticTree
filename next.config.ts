@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 import path from "path";
+import {
+  QUALVIEW_SECURITY_HEADERS,
+  SECURITY_HEADERS,
+} from "./lib/security-headers";
 
 /** Hidden Ethos Pulse pilot — proxied, not linked from marketing nav. */
 const ETHOS_PULSE_ORIGIN =
@@ -23,6 +27,23 @@ const DATAWIZ_ORIGIN =
 const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
+  },
+  async headers() {
+    return [
+      // QualView needs camera/mic — must not inherit the site-wide deny policy.
+      {
+        source: "/qualview",
+        headers: QUALVIEW_SECURITY_HEADERS,
+      },
+      {
+        source: "/qualview/:path*",
+        headers: QUALVIEW_SECURITY_HEADERS,
+      },
+      {
+        source: "/((?!qualview(?:/|$)).*)",
+        headers: SECURITY_HEADERS,
+      },
+    ];
   },
   async redirects() {
     return [
