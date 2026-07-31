@@ -42,7 +42,7 @@ const dataWizNav = [
   { label: "Overview", href: "/data-wiz" },
   { label: "Features", href: "/data-wiz#features" },
   { label: "Pricing", href: "/data-wiz#pricing" },
-  { label: "Studio", href: "https://www.elastictree.com/datawiz" },
+  { label: "Studio", href: "https://www.elastictree.com/datawiz/app" },
 ];
 
 const socialIcons = {

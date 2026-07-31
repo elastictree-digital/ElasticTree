@@ -44,7 +44,7 @@ const dataWizLinks = [
   { href: "/data-wiz", label: "Overview" },
   { href: "/data-wiz#features", label: "Features" },
   { href: "/data-wiz#pricing", label: "Pricing" },
-  { href: "https://www.elastictree.com/datawiz", label: "Studio", external: true },
+  { href: "https://www.elastictree.com/datawiz/app", label: "Studio", external: true },
 ];
 
 export default function Navbar() {
@@ -149,7 +149,7 @@ export default function Navbar() {
     if (isDataWiz) {
       return (
         <a
-          href="https://www.elastictree.com/datawiz"
+          href="https://www.elastictree.com/datawiz/app"
           className="btn-primary text-sm !py-2.5 !px-5"
         >
           Launch Studio
@@ -196,7 +196,7 @@ export default function Navbar() {
     if (isDataWiz) {
       return (
         <a
-          href="https://www.elastictree.com/datawiz"
+          href="https://www.elastictree.com/datawiz/app"
           className="btn-primary w-full justify-center"
         >
           Launch Studio

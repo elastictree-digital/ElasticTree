@@ -2,7 +2,7 @@
 
 export const DATAWIZ_STUDIO_URL =
   process.env.NEXT_PUBLIC_DATAWIZ_STUDIO_URL ??
-  "https://www.elastictree.com/datawiz";
+  "https://www.elastictree.com/datawiz/app";
 
 export const datawizDeliverables = [
   "Upload CSV / Excel and auto-infer survey schema",

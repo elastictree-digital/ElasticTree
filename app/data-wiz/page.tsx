@@ -224,7 +224,7 @@ export default function DataWizPage() {
             </a>
           </div>
           <p className="text-body-sm text-slate-400">
-            Launch Studio → upload dataset → build crosstabs
+            Launch Studio → access password → upload dataset → build crosstabs
           </p>
         </div>
       </section>
