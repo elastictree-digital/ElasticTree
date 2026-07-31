@@ -2,7 +2,7 @@
 
 export const DATAWIZ_STUDIO_URL =
   process.env.NEXT_PUBLIC_DATAWIZ_STUDIO_URL ??
-  "https://www.elastictree.com/datawiz/app";
+  "https://www.elastictree.com/datawiz";
 
 export const datawizDeliverables = [
   "Project & folder library (TScribe / QualView-style studio)",

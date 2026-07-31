@@ -162,10 +162,10 @@ export function StudioSignInModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
       <button
         type="button"
-        className="absolute inset-0 bg-[#0a1f4a]/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-[#0a1f4a]/85 backdrop-blur-md"
         aria-label="Close sign in"
         onClick={onClose}
       />
@@ -173,7 +173,7 @@ export function StudioSignInModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="studio-signin-title"
-        className="relative z-10 w-full max-w-md rounded-2xl border border-white/[0.1] bg-[#103466] p-6 sm:p-7 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+        className="relative z-10 w-full max-w-md rounded-2xl border border-white/[0.12] bg-[#103466] p-6 sm:p-8 shadow-[0_24px_80px_rgba(0,0,0,0.55)]"
       >
         <button
           type="button"

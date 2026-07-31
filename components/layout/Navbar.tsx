@@ -48,7 +48,7 @@ const dataWizLinks = [
   { href: "/data-wiz", label: "Overview" },
   { href: "/data-wiz#features", label: "Features" },
   { href: "/data-wiz#pricing", label: "Pricing" },
-  { href: "https://www.elastictree.com/datawiz/app", label: "Studio", external: true },
+  // Studio opens via Launch Studio CTA (sign-in modal) — not a bare link
 ];
 
 export default function Navbar() {
