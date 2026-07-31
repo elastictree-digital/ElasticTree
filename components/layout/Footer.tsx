@@ -11,6 +11,7 @@ const siteNav = [
   { label: "Capabilities", href: "/capabilities" },
   { label: "Table Share", href: "/table-share" },
   // AI Gaze nav tab hidden for now — page remains at /ai-gaze
+  { label: "QualView", href: "/Qual-view" },
   { label: "Case Studies", href: "/casestudies" },
   { label: "Contact", href: "/contact" },
 ];

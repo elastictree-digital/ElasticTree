@@ -13,6 +13,7 @@ const siteLinks = [
   { href: "/capabilities", label: "Capabilities" },
   { href: "/table-share", label: "Table Share" },
   // AI Gaze nav tab hidden for now — page remains at /ai-gaze
+  { href: "/Qual-view", label: "QualView" },
   { href: "/casestudies", label: "Case Studies" },
   { href: "/contact", label: "Contact" },
 ];
