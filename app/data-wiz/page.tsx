@@ -4,12 +4,15 @@ import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ProductStudioLink from "@/components/studio/ProductStudioLink";
+import CrosstabPreview from "@/components/data-wiz/CrosstabPreview";
 import {
   DATAWIZ_STUDIO_URL,
   datawizApplications,
   datawizDeliverables,
   datawizInsights,
   datawizPricing,
+  datawizStats,
+  datawizWorkflow,
 } from "@/lib/data-wiz";
 import { ArrowRight, Check, Table2, Sparkles } from "lucide-react";
 
@@ -27,6 +30,7 @@ export default function DataWizPage() {
   return (
     <>
       <PageHero
+        variant="home"
         eyebrow="Quantitative Research · Crosstab Studio"
         prefix={
           <Image
@@ -43,7 +47,7 @@ export default function DataWizPage() {
             Data<span className="text-gradient-amber">Wiz</span>
           </>
         }
-        subtitle="Upload coded survey data and build professional stub × banner crosstabs — nested breaks, column-letter significance, weighting, and Excel packs — without desktop stats software."
+        subtitle="Professional stub × banner books from uploaded survey data — nested breaks, column-letter significance, weighting, and Excel packs."
         actions={
           <>
             <ProductStudioLink
@@ -56,6 +60,12 @@ export default function DataWizPage() {
             </Link>
           </>
         }
+        stats={datawizStats.map((s) => ({
+          value: s.val,
+          label: s.label,
+          accent: s.accent,
+        }))}
+        visual={<CrosstabPreview />}
       />
 
       <section id="features" className="section-py-compact page-content">
@@ -64,7 +74,7 @@ export default function DataWizPage() {
             <SectionHeader
               label="Research Workspace"
               title="Quant crosstabs built for Elastic Tree delivery"
-              subtitle="The analysis depth of a Quantitative banner module — focused on uploaded datasets."
+              subtitle="Banner-module depth on your uploaded datasets — without the desktop stats shuffle."
               titleSize="md"
             />
             <ul className="list-spaced list-bullet">
@@ -80,10 +90,19 @@ export default function DataWizPage() {
               <Table2 size={20} className="text-[var(--amber)]" aria-hidden />
               <p className="text-title">How DataWiz works</p>
             </div>
-            <p className="text-body-sm">
-              Upload CSV or Excel, pick side rows (stubs) and banner layers, set bases and
-              significance, then build. Export multi-sheet Excel with an index and sig footnotes.
-            </p>
+            <ol className="space-y-4 mt-1">
+              {datawizWorkflow.map((w) => (
+                <li key={w.step} className="flex gap-3">
+                  <span className="font-mono text-[11px] font-bold text-[var(--amber)] mt-0.5 shrink-0">
+                    {w.step}
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{w.title}</p>
+                    <p className="text-body-sm mt-0.5">{w.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
             <ProductStudioLink
               product="datawiz"
               studioUrl={DATAWIZ_STUDIO_URL}
@@ -108,6 +127,11 @@ export default function DataWizPage() {
           <div className="content-grid-3">
             {datawizInsights.map((item) => (
               <div key={item.title} className="feature-card">
+                <div
+                  className="mb-4 h-0.5 w-10 rounded-full"
+                  style={{ background: item.accent }}
+                  aria-hidden
+                />
                 <h3 className="text-title mb-2" style={{ color: item.accent }}>
                   {item.title}
                 </h3>
@@ -229,9 +253,6 @@ export default function DataWizPage() {
               Contact Sales <ArrowRight size={16} />
             </a>
           </div>
-          <p className="text-body-sm text-slate-400">
-            Launch Studio → create project → upload → prepare / QC → analyze → export
-          </p>
         </div>
       </section>
     </>

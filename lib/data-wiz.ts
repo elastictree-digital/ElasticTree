@@ -4,6 +4,30 @@ export const DATAWIZ_STUDIO_URL =
   process.env.NEXT_PUBLIC_DATAWIZ_STUDIO_URL ??
   "https://www.elastictree.com/datawiz";
 
+export const datawizStats = [
+  { val: "Stub × Banner", label: "Research-grade tables", accent: "#e8a820" },
+  { val: "90 / 95 / 99", label: "Column-letter significance", accent: "#38bdf8" },
+  { val: "Excel packs", label: "Index + sig footnotes", accent: "#2dd4bf" },
+] as const;
+
+export const datawizWorkflow = [
+  {
+    step: "01",
+    title: "Project library",
+    desc: "Organize studies in projects and folders — same studio rhythm as TScribe and QualView.",
+  },
+  {
+    step: "02",
+    title: "Upload & prepare",
+    desc: "Infer schema, run QC, build T2B / B2B nets, wrangle columns, save derived datasets.",
+  },
+  {
+    step: "03",
+    title: "Analyze & export",
+    desc: "Nested banners, bases, weights, heatmap scan — then multi-sheet Excel for the client pack.",
+  },
+] as const;
+
 export const datawizDeliverables = [
   "Project & folder library (TScribe / QualView-style studio)",
   "Upload CSV / Excel into a selected project",
