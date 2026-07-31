@@ -40,6 +40,9 @@ export default function QualViewPage() {
             <Link href="#pricing" className="btn-secondary">
               View Pricing <ArrowRight size={16} />
             </Link>
+            <span className="inline-flex items-center rounded-full border border-[rgba(232,168,32,0.35)] bg-[rgba(232,168,32,0.1)] px-3 py-1.5 text-xs font-medium text-[var(--amber)]">
+              5 min free trial
+            </span>
           </>
         }
       />
