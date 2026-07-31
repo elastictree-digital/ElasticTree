@@ -31,10 +31,10 @@ export const datawizWorkflow = [
 export const datawizDeliverables = [
   "Project & folder library (TScribe / QualView-style studio)",
   "Upload CSV / Excel into a selected project",
-  "Prepare: QC checks, custom nets (T2B / B2B), wrangle & save derived datasets",
-  "Stub × banner crosstabs with nested layers and significance",
-  "Re-run analysis on prepared datasets in the same project",
-  "Excel export and recent analysis history",
+  "Prepare: QC, arbitrary nets, question groups, RIM weights",
+  "Analysis plans — save, import/export JSON, batch run all stubs",
+  "Nested banners with live header preview · row nest · filter trees",
+  "χ², means tests, FDR, effective-n significance · wave compare · Excel packs",
 ] as const;
 
 export const datawizInsights = [
