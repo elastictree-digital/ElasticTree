@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   description:
     "QualView — Elastic Tree live qualitative viewing room. Moderator, respondents, and client observers with live transcript, engagement overlays, and ET consulting PPTX.",
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 };
 

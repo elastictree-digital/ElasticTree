@@ -15,7 +15,10 @@ export default function robots(): MetadataRoute.Robots {
         "/TSCRIBE/",
         "/t-scribe",
         "/t-scribe/",
-        // QualView marketing is public; keep studio proxy unlisted
+        "/Qual-view",
+        "/Qual-view/",
+        "/qual-view",
+        "/qual-view/",
         "/qualview",
         "/qualview/",
       ],
