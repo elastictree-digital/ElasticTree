@@ -11,7 +11,7 @@ export const aiGazeStats = [
 
 export const aiGazeFeatures = [
   "Heat maps, hot spots, and gaze-path prediction",
-  "Clarity score, top elements, face pull & attention balance",
+  "Clarity score, top elements & attention balance",
   "Packaging, planogram, ads, and digital creative QA",
   "Branded PDF reports — fraction of hardware eye-tracking cost",
 ] as const;
@@ -21,7 +21,7 @@ export const aiGazeDeliverables = [
   "Hot-spot tiers (HIGH / MEDIUM / LOW)",
   "Gaze sequence for the first ~3 seconds",
   "Clarity score and top attention regions",
-  "Face / figure pull and composition balance",
+  "Composition balance and attention hierarchy",
   "Client-ready branded PDF report",
 ] as const;
 
@@ -76,7 +76,7 @@ export const aiGazePricing = [
       "80 analyses / month",
       "Everything in Starter",
       "A/B variant compare",
-      "Face pull & attention balance",
+      "Attention balance",
       "Priority support · shared seats (3)",
     ],
     featured: true,
