@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
+import ProductStudioLink from "@/components/studio/ProductStudioLink";
 import {
   TSCRIBE_STUDIO_URL,
   tscribeApplications,
@@ -35,9 +36,11 @@ export default function TScribePage() {
         subtitle="From recording to research-ready in one studio. Upload DIs and FGDs — get Moderator / Respondent transcripts, editable studios, and Elastic Tree–style research reports powered by OpenAI Whisper."
         actions={
           <>
-            <a href={TSCRIBE_STUDIO_URL} className="btn-primary">
-              Launch Studio <ArrowRight size={16} />
-            </a>
+            <ProductStudioLink
+              product="tscribe"
+              studioUrl={TSCRIBE_STUDIO_URL}
+              label="Launch Studio"
+            />
             <Link href="#pricing" className="btn-secondary">
               View Pricing <ArrowRight size={16} />
             </Link>
@@ -77,9 +80,15 @@ export default function TScribePage() {
               Moderator and Respondent for DIs and FGDs. Edit in-studio, generate a
               GPT debrief, then export for the client pack.
             </p>
-            <a href={TSCRIBE_STUDIO_URL} className="btn-secondary text-sm inline-flex">
-              Open studio <ArrowRight size={14} />
-            </a>
+            <ProductStudioLink
+              product="tscribe"
+              studioUrl={TSCRIBE_STUDIO_URL}
+              variant="secondary"
+              size="sm"
+              label="Open studio"
+              showIcon={false}
+              className="text-sm inline-flex"
+            />
           </div>
         </div>
       </section>
@@ -129,7 +138,7 @@ export default function TScribePage() {
           <SectionHeader
             label="Pricing"
             title="Choose how your team uses TScribe™"
-            subtitle="Transparent SaaS plans · Pilot studio access available"
+            subtitle="Transparent SaaS plans · Studio access available"
             className="mb-10"
           />
           <div className="content-grid-3 gap-6 items-stretch">
@@ -166,16 +175,14 @@ export default function TScribePage() {
                     Talk to Sales
                   </a>
                 ) : (
-                  <a
-                    href={TSCRIBE_STUDIO_URL}
-                    className={
-                      plan.featured
-                        ? "btn-primary w-full justify-center"
-                        : "btn-secondary w-full justify-center"
-                    }
-                  >
-                    {plan.featured ? "Choose Growth" : "Start Starter"}
-                  </a>
+                  <ProductStudioLink
+                    product="tscribe"
+                    studioUrl={TSCRIBE_STUDIO_URL}
+                    variant={plan.featured ? "primary" : "secondary"}
+                    showIcon={false}
+                    label={plan.featured ? "Choose Growth" : "Start Starter"}
+                    className="w-full justify-center"
+                  />
                 )}
               </div>
             ))}
@@ -197,9 +204,11 @@ export default function TScribePage() {
             exports in one Elastic Tree product.
           </p>
           <div className="flex flex-wrap gap-3 pt-1">
-            <a href={TSCRIBE_STUDIO_URL} className="btn-primary">
-              Launch Studio <ArrowRight size={16} />
-            </a>
+            <ProductStudioLink
+              product="tscribe"
+              studioUrl={TSCRIBE_STUDIO_URL}
+              label="Launch Studio"
+            />
             <a href="mailto:sunil@elastictree.com" className="btn-secondary">
               Contact Sales <ArrowRight size={16} />
             </a>

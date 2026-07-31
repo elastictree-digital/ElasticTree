@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
+import ProductStudioLink from "@/components/studio/ProductStudioLink";
 import {
   QUALVIEW_STUDIO_URL,
   qualviewApplications,
@@ -34,9 +35,11 @@ export default function QualViewPage() {
         subtitle="Conduct DIs and FGDs online with a client viewing room — live per-speaker transcript, engagement overlays, and an Elastic Tree Master Template PPTX when the session ends."
         actions={
           <>
-            <a href={QUALVIEW_STUDIO_URL} className="btn-primary">
-              Launch Studio <ArrowRight size={16} />
-            </a>
+            <ProductStudioLink
+              product="qualview"
+              studioUrl={QUALVIEW_STUDIO_URL}
+              label="Launch Studio"
+            />
             <Link href="#pricing" className="btn-secondary">
               View Pricing <ArrowRight size={16} />
             </Link>
@@ -74,9 +77,15 @@ export default function QualViewPage() {
               Captions and engagement run in-session. End the room to open debrief and
               download an Elastic Tree consulting PPTX.
             </p>
-            <a href={QUALVIEW_STUDIO_URL} className="btn-secondary text-sm inline-flex">
-              Open studio <ArrowRight size={14} />
-            </a>
+            <ProductStudioLink
+              product="qualview"
+              studioUrl={QUALVIEW_STUDIO_URL}
+              variant="secondary"
+              size="sm"
+              label="Open studio"
+              showIcon={false}
+              className="text-sm inline-flex"
+            />
           </div>
         </div>
       </section>
@@ -174,16 +183,14 @@ export default function QualViewPage() {
                     Talk to Sales
                   </a>
                 ) : (
-                  <a
-                    href={QUALVIEW_STUDIO_URL}
-                    className={
-                      plan.featured
-                        ? "btn-primary w-full justify-center"
-                        : "btn-secondary w-full justify-center"
-                    }
-                  >
-                    {plan.featured ? "Choose Growth" : "Start Starter"}
-                  </a>
+                  <ProductStudioLink
+                    product="qualview"
+                    studioUrl={QUALVIEW_STUDIO_URL}
+                    variant={plan.featured ? "primary" : "secondary"}
+                    showIcon={false}
+                    label={plan.featured ? "Choose Growth" : "Start Starter"}
+                    className="w-full justify-center"
+                  />
                 )}
               </div>
             ))}
@@ -209,9 +216,11 @@ export default function QualViewPage() {
             engagement, and Elastic Tree PPTX in one product.
           </p>
           <div className="flex flex-wrap gap-3 pt-1">
-            <a href={QUALVIEW_STUDIO_URL} className="btn-primary">
-              Launch Studio <ArrowRight size={16} />
-            </a>
+            <ProductStudioLink
+              product="qualview"
+              studioUrl={QUALVIEW_STUDIO_URL}
+              label="Launch Studio"
+            />
             <a href="mailto:sunil@elastictree.com" className="btn-secondary">
               Contact Sales <ArrowRight size={16} />
             </a>

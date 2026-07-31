@@ -5,7 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ETLogo from "./ETLogo";
 import AiGazeLogo from "./AiGazeLogo";
-import AiGazeStudioLink from "@/components/ai-gaze/AiGazeStudioLink";
+import ProductStudioLink from "@/components/studio/ProductStudioLink";
+import { AI_GAZE_STUDIO_URL } from "@/lib/ai-gaze";
+import { DATAWIZ_STUDIO_URL } from "@/lib/data-wiz";
+import { QUALVIEW_STUDIO_URL } from "@/lib/qual-view";
+import { TSCRIBE_STUDIO_URL } from "@/lib/t-scribe";
 import { Menu, X } from "lucide-react";
 
 const siteLinks = [
@@ -119,7 +123,9 @@ export default function Navbar() {
   function studioCta() {
     if (isAiGaze) {
       return (
-        <AiGazeStudioLink
+        <ProductStudioLink
+          product="ai-gaze"
+          studioUrl={AI_GAZE_STUDIO_URL}
           label="Launch Studio"
           showIcon={false}
           className="text-sm !py-2.5 !px-5"
@@ -128,32 +134,35 @@ export default function Navbar() {
     }
     if (isTScribe) {
       return (
-        <a
-          href="https://www.elastictree.com/TSCRIBE"
-          className="btn-primary text-sm !py-2.5 !px-5"
-        >
-          Launch Studio
-        </a>
+        <ProductStudioLink
+          product="tscribe"
+          studioUrl={TSCRIBE_STUDIO_URL}
+          label="Launch Studio"
+          showIcon={false}
+          className="text-sm !py-2.5 !px-5"
+        />
       );
     }
     if (isQualView) {
       return (
-        <a
-          href="https://www.elastictree.com/qualview"
-          className="btn-primary text-sm !py-2.5 !px-5"
-        >
-          Launch Studio
-        </a>
+        <ProductStudioLink
+          product="qualview"
+          studioUrl={QUALVIEW_STUDIO_URL}
+          label="Launch Studio"
+          showIcon={false}
+          className="text-sm !py-2.5 !px-5"
+        />
       );
     }
     if (isDataWiz) {
       return (
-        <a
-          href="https://www.elastictree.com/datawiz/app"
-          className="btn-primary text-sm !py-2.5 !px-5"
-        >
-          Launch Studio
-        </a>
+        <ProductStudioLink
+          product="datawiz"
+          studioUrl={DATAWIZ_STUDIO_URL}
+          label="Launch Studio"
+          showIcon={false}
+          className="text-sm !py-2.5 !px-5"
+        />
       );
     }
     return (
@@ -166,7 +175,9 @@ export default function Navbar() {
   function mobileStudioCta() {
     if (isAiGaze) {
       return (
-        <AiGazeStudioLink
+        <ProductStudioLink
+          product="ai-gaze"
+          studioUrl={AI_GAZE_STUDIO_URL}
           label="Launch Studio"
           showIcon={false}
           className="w-full justify-center"
@@ -175,32 +186,35 @@ export default function Navbar() {
     }
     if (isTScribe) {
       return (
-        <a
-          href="https://www.elastictree.com/TSCRIBE"
-          className="btn-primary w-full justify-center"
-        >
-          Launch Studio
-        </a>
+        <ProductStudioLink
+          product="tscribe"
+          studioUrl={TSCRIBE_STUDIO_URL}
+          label="Launch Studio"
+          showIcon={false}
+          className="w-full justify-center"
+        />
       );
     }
     if (isQualView) {
       return (
-        <a
-          href="https://www.elastictree.com/qualview"
-          className="btn-primary w-full justify-center"
-        >
-          Launch Studio
-        </a>
+        <ProductStudioLink
+          product="qualview"
+          studioUrl={QUALVIEW_STUDIO_URL}
+          label="Launch Studio"
+          showIcon={false}
+          className="w-full justify-center"
+        />
       );
     }
     if (isDataWiz) {
       return (
-        <a
-          href="https://www.elastictree.com/datawiz/app"
-          className="btn-primary w-full justify-center"
-        >
-          Launch Studio
-        </a>
+        <ProductStudioLink
+          product="datawiz"
+          studioUrl={DATAWIZ_STUDIO_URL}
+          label="Launch Studio"
+          showIcon={false}
+          className="w-full justify-center"
+        />
       );
     }
     return (

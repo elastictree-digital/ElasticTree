@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
+import ProductStudioLink from "@/components/studio/ProductStudioLink";
 import {
   DATAWIZ_STUDIO_URL,
   datawizApplications,
@@ -45,15 +46,14 @@ export default function DataWizPage() {
         subtitle="Upload coded survey data and build professional stub × banner crosstabs — nested breaks, column-letter significance, weighting, and Excel packs — without desktop stats software."
         actions={
           <>
-            <a href={DATAWIZ_STUDIO_URL} className="btn-primary">
-              Launch Studio <ArrowRight size={16} />
-            </a>
+            <ProductStudioLink
+              product="datawiz"
+              studioUrl={DATAWIZ_STUDIO_URL}
+              label="Launch Studio"
+            />
             <Link href="#pricing" className="btn-secondary">
               View Pricing <ArrowRight size={16} />
             </Link>
-            <span className="inline-flex items-center rounded-full border border-[rgba(232,168,32,0.35)] bg-[rgba(232,168,32,0.1)] px-3 py-1.5 text-xs font-medium text-[var(--amber)]">
-              Hidden pilot
-            </span>
           </>
         }
       />
@@ -84,9 +84,15 @@ export default function DataWizPage() {
               Upload CSV or Excel, pick side rows (stubs) and banner layers, set bases and
               significance, then build. Export multi-sheet Excel with an index and sig footnotes.
             </p>
-            <a href={DATAWIZ_STUDIO_URL} className="btn-secondary text-sm inline-flex">
-              Open studio <ArrowRight size={14} />
-            </a>
+            <ProductStudioLink
+              product="datawiz"
+              studioUrl={DATAWIZ_STUDIO_URL}
+              variant="secondary"
+              size="sm"
+              label="Open studio"
+              showIcon={false}
+              className="text-sm inline-flex"
+            />
           </div>
         </div>
       </section>
@@ -176,16 +182,14 @@ export default function DataWizPage() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href={DATAWIZ_STUDIO_URL}
-                  className={
-                    plan.featured
-                      ? "btn-primary w-full justify-center"
-                      : "btn-secondary w-full justify-center"
-                  }
-                >
-                  {plan.featured ? "Choose Pro" : `Start ${plan.name}`}
-                </a>
+                <ProductStudioLink
+                  product="datawiz"
+                  studioUrl={DATAWIZ_STUDIO_URL}
+                  variant={plan.featured ? "primary" : "secondary"}
+                  showIcon={false}
+                  label={plan.featured ? "Choose Pro" : `Start ${plan.name}`}
+                  className="w-full justify-center"
+                />
               </div>
             ))}
           </div>
@@ -216,15 +220,17 @@ export default function DataWizPage() {
             significance, and Excel export in one product.
           </p>
           <div className="flex flex-wrap gap-3 pt-1">
-            <a href={DATAWIZ_STUDIO_URL} className="btn-primary">
-              Launch Studio <ArrowRight size={16} />
-            </a>
+            <ProductStudioLink
+              product="datawiz"
+              studioUrl={DATAWIZ_STUDIO_URL}
+              label="Launch Studio"
+            />
             <a href="mailto:sunil@elastictree.com" className="btn-secondary">
               Contact Sales <ArrowRight size={16} />
             </a>
           </div>
           <p className="text-body-sm text-slate-400">
-            Launch Studio → access password → upload dataset → build crosstabs
+            Launch Studio → create project → upload → prepare / QC → analyze → export
           </p>
         </div>
       </section>

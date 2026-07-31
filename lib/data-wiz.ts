@@ -1,16 +1,16 @@
-/** DataWiz — crosstab analysis studio (Elastic Tree). Hidden pilot. */
+/** DataWiz — crosstab analysis studio (Elastic Tree). */
 
 export const DATAWIZ_STUDIO_URL =
   process.env.NEXT_PUBLIC_DATAWIZ_STUDIO_URL ??
   "https://www.elastictree.com/datawiz/app";
 
 export const datawizDeliverables = [
-  "Upload CSV / Excel and auto-infer survey schema",
-  "Stub × banner crosstabs with nested banner layers",
-  "Column % · row % · counts · All vs Answered bases",
-  "Column-letter significance (90 / 95 / 99%)",
-  "Weighting, filters, summary stats (mean · T2B · B2B)",
-  "Multi-table batch run and Excel export",
+  "Project & folder library (TScribe / QualView-style studio)",
+  "Upload CSV / Excel into a selected project",
+  "Prepare: QC checks, custom nets (T2B / B2B), wrangle & save derived datasets",
+  "Stub × banner crosstabs with nested layers and significance",
+  "Re-run analysis on prepared datasets in the same project",
+  "Excel export and recent analysis history",
 ] as const;
 
 export const datawizInsights = [

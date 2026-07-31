@@ -1,4 +1,4 @@
-/** QualView — live qualitative viewing room (Elastic Tree). Hidden pilot. */
+/** QualView — live qualitative viewing room (Elastic Tree). */
 
 export const QUALVIEW_STUDIO_URL =
   process.env.NEXT_PUBLIC_QUALVIEW_STUDIO_URL ??
