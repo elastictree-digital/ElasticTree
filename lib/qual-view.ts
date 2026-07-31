@@ -4,13 +4,6 @@ export const QUALVIEW_STUDIO_URL =
   process.env.NEXT_PUBLIC_QUALVIEW_STUDIO_URL ??
   "https://www.elastictree.com/qualview";
 
-export const qualviewStats = [
-  { val: "5 min", label: "Free trial live time", accent: "#e8a820" },
-  { val: "DI / FGD", label: "Moderator · Respondent · Observer", accent: "#2dd4bf" },
-  { val: "Live", label: "Transcript + engagement", accent: "#38bdf8" },
-  { val: "PPTX", label: "ET Master Template debrief", accent: "#a78bfa" },
-] as const;
-
 export const qualviewDeliverables = [
   "Live WebRTC viewing room for moderator, respondents, and client observers",
   "Per-speaker live transcription with Moderator / Respondent labels",

@@ -8,7 +8,6 @@ import {
   qualviewDeliverables,
   qualviewInsights,
   qualviewPricing,
-  qualviewStats,
 } from "@/lib/qual-view";
 import { ArrowRight, Check, Eye, Sparkles } from "lucide-react";
 
@@ -43,11 +42,6 @@ export default function QualViewPage() {
             </Link>
           </>
         }
-        stats={qualviewStats.map((s) => ({
-          value: s.val,
-          label: s.label,
-          accent: s.accent,
-        }))}
       />
 
       <section id="features" className="section-py-compact page-content">
