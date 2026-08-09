@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/privacy/CookieConsent";
+import GrowthAnalyticsBeacon from "@/components/analytics/GrowthAnalyticsBeacon";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -106,6 +107,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <CookieConsent />
+        <GrowthAnalyticsBeacon />
       </body>
     </html>
   );

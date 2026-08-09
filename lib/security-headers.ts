@@ -5,7 +5,7 @@ export const SECURITY_HEADERS = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), payment=()",
+    value: "camera=(), microphone=(), geolocation=(), payment=(self)",
   },
   {
     key: "Strict-Transport-Security",
@@ -18,7 +18,7 @@ export const QUALVIEW_SECURITY_HEADERS = SECURITY_HEADERS.map((h) =>
   h.key === "Permissions-Policy"
     ? {
         key: "Permissions-Policy",
-        value: "camera=(self), microphone=(self), geolocation=(), payment=()",
+        value: "camera=(self), microphone=(self), geolocation=(), payment=(self)",
       }
     : h,
 );

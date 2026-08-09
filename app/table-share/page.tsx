@@ -5,6 +5,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import OccasionIcon, { occasionVariantFromName } from "@/components/ui/icons/OccasionIcon";
 import TableShareDemoLink from "@/components/table-share/TableShareDemoLink";
 import DashboardPreview from "@/components/table-share/DashboardPreview";
+import DisplayPricingGrid from "@/components/billing/DisplayPricingGrid";
 import {
   tableShareStats,
   tableShareInsights,
@@ -12,6 +13,7 @@ import {
   tableShareBusinessUses,
   tableShareDeliverables,
   tableShareCities,
+  tableSharePricing,
 } from "@/lib/table-share";
 import {
   MapPin,
@@ -175,6 +177,31 @@ export default function TableSharePage() {
               </span>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="pricing" className="section-py-compact section-flow flow-tint-purple">
+        <div className="page-content">
+          <SectionHeader
+            label="Pricing"
+            title="Table Share® access plans"
+            subtitle="Syndicated food consumption data · Quarterly tiers · All prices exclusive of GST"
+            className="mb-10"
+          />
+          <DisplayPricingGrid
+            productName="Table Share"
+            plans={tableSharePricing.map((plan) => ({
+              name: plan.name,
+              price: plan.price,
+              period: plan.period,
+              blurb: plan.blurb,
+              features: plan.features,
+              featured: plan.featured,
+              amountInr: plan.amountInr ?? null,
+              href: `mailto:sunilmukkath@elastictree.com?subject=Table%20Share%20${encodeURIComponent(plan.name)}`,
+            }))}
+            footnote="Base prices in INR, exclusive of GST · Custom / bulk pricing available for ongoing agency partnerships · Select your country above to pay in local currency (+20% intl)"
+          />
         </div>
       </section>
 

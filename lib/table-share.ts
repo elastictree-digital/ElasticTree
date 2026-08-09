@@ -77,3 +77,49 @@ export const tableShareFeatures = [
   "Occasion-led growth strategy & city prioritisation",
   "Day-after recall methodology for maximum accuracy",
 ] as const;
+
+/** Syndicated access — quarterly tiered plans. */
+export const tableSharePricing = [
+  {
+    name: "Single Category",
+    price: "₹20,000",
+    amountInr: 20000,
+    period: "/ quarter",
+    blurb: "One food category, one geography.",
+    features: [
+      "One food category",
+      "One geography",
+      "Dashboard + overview report",
+      "Analysis support",
+    ],
+    featured: false,
+  },
+  {
+    name: "Multi-Category",
+    price: "₹35,000",
+    amountInr: 35000,
+    period: "/ quarter",
+    blurb: "Up to three categories or geographies.",
+    features: [
+      "Up to 3 categories / geographies",
+      "Comparative cuts across selections",
+      "Dashboard + overview report",
+      "Analysis support",
+    ],
+    featured: true,
+  },
+  {
+    name: "Full Access",
+    price: "₹45,000",
+    amountInr: 45000,
+    period: "/ quarter",
+    blurb: "All categories and geographies with priority refresh.",
+    features: [
+      "All categories",
+      "All geographies",
+      "Priority data refresh",
+      "Full dashboard access + analysis support",
+    ],
+    featured: false,
+  },
+] as const;

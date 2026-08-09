@@ -4,6 +4,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AiGazeStudioLink from "@/components/ai-gaze/AiGazeStudioLink";
 import AiGazeStudioEmbed from "@/components/ai-gaze/AiGazeStudioEmbed";
+import DisplayPricingGrid from "@/components/billing/DisplayPricingGrid";
 import {
   aiGazeStats,
   aiGazeInsights,
@@ -11,7 +12,7 @@ import {
   aiGazeApplications,
   aiGazePricing,
 } from "@/lib/ai-gaze";
-import { ArrowRight, Check, Eye, Sparkles } from "lucide-react";
+import { ArrowRight, Eye, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "AI Gaze™ | Predictive Eye Tracking",
@@ -125,57 +126,23 @@ export default function AiGazePage() {
           <SectionHeader
             label="Pricing"
             title="Choose how your team uses AI Gaze™"
-            subtitle="Transparent SaaS plans · Custom research retainers available on request"
+            subtitle="Per-creative and pack pricing · All prices exclusive of GST"
             className="mb-10"
           />
-          <div className="content-grid-3 gap-6 items-stretch">
-            {aiGazePricing.map((plan) => (
-              <div
-                key={plan.name}
-                className={`feature-card relative flex flex-col ${
-                  plan.featured ? "ring-1 ring-[var(--amber)]/50 bg-[rgba(232,168,32,0.08)]" : ""
-                }`}
-              >
-                {plan.featured && (
-                  <span className="absolute top-4 right-4 text-[10px] font-mono uppercase tracking-[0.12em] px-2 py-1 rounded-full bg-gradient-to-r from-[#f5c842] to-[#e8a820] text-[#0a1f4a] font-bold">
-                    Popular
-                  </span>
-                )}
-                <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-[var(--teal)] mb-3">
-                  {plan.name}
-                </p>
-                <p className="font-display font-black text-3xl text-white leading-none mb-1">
-                  {plan.price}
-                  <span className="text-sm font-semibold text-slate-400 ml-1">{plan.period}</span>
-                </p>
-                <p className="text-body-sm mb-5 mt-3">{plan.blurb}</p>
-                <ul className="space-y-2.5 mb-6 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex gap-2 text-body-sm text-slate-300">
-                      <Check size={15} className="text-[var(--teal)] shrink-0 mt-0.5" aria-hidden />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                {plan.name === "Enterprise" ? (
-                  <a href="mailto:sunil@elastictree.com" className="btn-secondary w-full justify-center">
-                    Talk to Sales
-                  </a>
-                ) : (
-                  <AiGazeStudioLink
-                    variant={plan.featured ? "primary" : "secondary"}
-                    size="sm"
-                    label={plan.featured ? "Choose Growth" : "Start Starter"}
-                    className="w-full justify-center"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-body-sm text-slate-500 mt-8">
-            Prices in INR · Annual billing discounts on Growth &amp; Enterprise · Custom pack / shelf studies quoted
-            separately
-          </p>
+          <DisplayPricingGrid
+            productName="AI Gaze"
+            plans={aiGazePricing.map((plan) => ({
+              name: plan.name,
+              price: plan.price,
+              period: plan.period,
+              blurb: plan.blurb,
+              features: plan.features,
+              featured: plan.featured,
+              amountInr: plan.amountInr ?? null,
+              href: `mailto:sunilmukkath@elastictree.com?subject=AI%20Gaze%20${encodeURIComponent(plan.name)}`,
+            }))}
+            footnote="Base prices in INR, exclusive of GST · Agency retainers quoted for ongoing volume · Select your country above to pay in local currency (+20% intl)"
+          />
         </div>
       </section>
 

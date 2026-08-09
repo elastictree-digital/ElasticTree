@@ -1,0 +1,121 @@
+import { mkdirSync, readFileSync, writeFileSync, existsSync } from "fs";
+import path from "path";
+import { Redis } from "@upstash/redis";
+
+export type PayUOrderRecord = {
+  txnid: string;
+  mihpayid?: string;
+  sku: string;
+  email: string;
+  amountInr: number;
+  status: "created" | "success" | "failure" | "fulfilled" | "fulfill_failed";
+  createdAt: string;
+  updatedAt: string;
+  fulfillDetail?: string;
+};
+
+type Store = { orders: PayUOrderRecord[] };
+
+const KEY_PREFIX = "payu:order:";
+
+function redisFromEnv(): Redis | null {
+  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  if (!url || !token) return null;
+  return new Redis({ url, token });
+}
+
+function dataPath(): string {
+  const override = process.env.PAYU_ORDERS_PATH?.trim();
+  if (override) return override;
+  return path.join(process.cwd(), ".data", "payu-orders.json");
+}
+
+function readFileStore(): Store {
+  const file = dataPath();
+  try {
+    if (!existsSync(file)) return { orders: [] };
+    const raw = readFileSync(file, "utf8");
+    const parsed = JSON.parse(raw) as Store;
+    return { orders: Array.isArray(parsed.orders) ? parsed.orders : [] };
+  } catch {
+    return { orders: [] };
+  }
+}
+
+function writeFileStore(store: Store) {
+  const file = dataPath();
+  mkdirSync(path.dirname(file), { recursive: true });
+  writeFileSync(file, JSON.stringify(store, null, 2), "utf8");
+}
+
+function orderKey(txnid: string): string {
+  return `${KEY_PREFIX}${txnid}`;
+}
+
+export async function upsertOrder(
+  partial: Omit<PayUOrderRecord, "createdAt" | "updatedAt"> & {
+    createdAt?: string;
+  },
+): Promise<PayUOrderRecord> {
+  const now = new Date().toISOString();
+  const redis = redisFromEnv();
+
+  if (redis) {
+    const key = orderKey(partial.txnid);
+    const prev = (await redis.get<PayUOrderRecord>(key)) ?? null;
+    const next: PayUOrderRecord = prev
+      ? {
+          ...prev,
+          ...partial,
+          createdAt: prev.createdAt,
+          updatedAt: now,
+        }
+      : {
+          ...partial,
+          createdAt: partial.createdAt ?? now,
+          updatedAt: now,
+        };
+    // 90 days retention
+    await redis.set(key, next, { ex: 60 * 60 * 24 * 90 });
+    return next;
+  }
+
+  const store = readFileStore();
+  const idx = store.orders.findIndex((o) => o.txnid === partial.txnid);
+  if (idx >= 0) {
+    const prev = store.orders[idx];
+    const next: PayUOrderRecord = {
+      ...prev,
+      ...partial,
+      createdAt: prev.createdAt,
+      updatedAt: now,
+    };
+    store.orders[idx] = next;
+    writeFileStore(store);
+    return next;
+  }
+  const created: PayUOrderRecord = {
+    ...partial,
+    createdAt: partial.createdAt ?? now,
+    updatedAt: now,
+  };
+  store.orders.push(created);
+  writeFileStore(store);
+  return created;
+}
+
+export async function getOrder(txnid: string): Promise<PayUOrderRecord | undefined> {
+  const redis = redisFromEnv();
+  if (redis) {
+    const row = await redis.get<PayUOrderRecord>(orderKey(txnid));
+    return row ?? undefined;
+  }
+  return readFileStore().orders.find((o) => o.txnid === txnid);
+}
+
+/** Returns true if this txn was already fulfilled (idempotent skip). */
+export async function alreadyFulfilled(txnid: string): Promise<boolean> {
+  const o = await getOrder(txnid);
+  return o?.status === "fulfilled";
+}
