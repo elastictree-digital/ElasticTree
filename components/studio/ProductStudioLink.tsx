@@ -11,7 +11,7 @@ const PRODUCT_COPY: Record<
 > = {
   "ai-gaze": {
     title: "Open AI Gaze Studio",
-    blurb: "Continue to sign in or register with your email on the studio.",
+    blurb: "Sign in with your email and password on the studio — same access pattern as DataWiz and QualView.",
     cta: "Continue →",
   },
   datawiz: {

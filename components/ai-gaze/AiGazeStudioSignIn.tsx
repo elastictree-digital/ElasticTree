@@ -27,7 +27,8 @@ export function AiGazeSignInForm({
         Sign in to AI Gaze Studio
       </p>
       <p className="text-body-sm text-slate-400 mb-5">
-        Continue to sign in or register with your email on the analysis dashboard.
+        Sign in with your email and password on the studio — same access pattern as
+        DataWiz, QualView, and TScribe.
       </p>
 
       <button
