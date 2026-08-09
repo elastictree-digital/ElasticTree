@@ -5,38 +5,60 @@ import { Play, X } from "lucide-react";
 
 type ProductId = "ai-gaze" | "datawiz" | "qualview" | "tscribe" | "ethos-pulse";
 
+const SSO_ON = process.env.NEXT_PUBLIC_ET_SSO === "1";
+
 const PRODUCT_COPY: Record<
   ProductId,
   { title: string; blurb: string; cta: string }
 > = {
   "ai-gaze": {
     title: "Open AI Gaze Studio",
-    blurb: "Sign in with your email and password on the studio — same access pattern as DataWiz and QualView.",
-    cta: "Continue →",
+    blurb: SSO_ON
+      ? "Sign in once with Google, Microsoft, LinkedIn, or email. Use the same email as PayU checkout."
+      : "Sign in with your email and password on the studio — same access pattern as DataWiz and QualView.",
+    cta: SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →",
   },
   datawiz: {
     title: "Open DataWiz Studio",
-    blurb: "Continue to sign in or register with your email on the studio.",
-    cta: "Continue →",
+    blurb: SSO_ON
+      ? "Sign in once with Google, Microsoft, LinkedIn, or email. Use the same email as PayU checkout."
+      : "Continue to sign in or register with your email on the studio.",
+    cta: SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →",
   },
   qualview: {
     title: "Open QualView Studio",
-    blurb: "Continue to sign in or register with your email on the studio.",
-    cta: "Continue →",
+    blurb: SSO_ON
+      ? "Sign in once with Google, Microsoft, LinkedIn, or email. Use the same email as PayU checkout."
+      : "Continue to sign in or register with your email on the studio.",
+    cta: SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →",
   },
   tscribe: {
     title: "Open TScribe Studio",
-    blurb: "Continue to sign in or register with your email on the studio.",
-    cta: "Continue →",
+    blurb: SSO_ON
+      ? "Sign in once with Google, Microsoft, LinkedIn, or email. Use the same email as PayU checkout."
+      : "Continue to sign in or register with your email on the studio.",
+    cta: SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →",
   },
   "ethos-pulse": {
     title: "Open Ethos Pulse",
-    blurb: "Continue to sign in or register with your email on Ethos Pulse.",
-    cta: "Continue →",
+    blurb: SSO_ON
+      ? "Sign in once with Google, Microsoft, LinkedIn, or email. Use the same email as PayU checkout."
+      : "Continue to sign in or register with your email on Ethos Pulse.",
+    cta: SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →",
   },
 };
 
 export function openStudio(studioUrl: string) {
+  if (SSO_ON) {
+    const accounts = (
+      process.env.NEXT_PUBLIC_SITE_URL || "https://www.elastictree.com"
+    ).replace(/\/$/, "");
+    const returnUrl = studioUrl;
+    window.location.assign(
+      `${accounts}/accounts/signin?returnUrl=${encodeURIComponent(returnUrl)}`,
+    );
+    return;
+  }
   const url = new URL(studioUrl);
   url.searchParams.set("signin", "1");
   window.location.assign(url.toString());
@@ -139,7 +161,7 @@ interface StudioLinkProps {
   showIcon?: boolean;
 }
 
-/** Opens the product studio — users sign in with email + password there. */
+/** Opens the product studio — SSO when ET_SSO is on, else email gate on the studio. */
 export default function ProductStudioLink({
   product,
   studioUrl,

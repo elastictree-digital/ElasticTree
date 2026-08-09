@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/privacy/CookieConsent";
 import GrowthAnalyticsBeacon from "@/components/analytics/GrowthAnalyticsBeacon";
+import AuthSessionProvider from "@/components/auth/AuthSessionProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -103,11 +104,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${outfit.variable} ${dmMono.variable}`}>
       <body className="font-sans antialiased page-spectrum">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <CookieConsent />
-        <GrowthAnalyticsBeacon />
+        <AuthSessionProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <CookieConsent />
+          <GrowthAnalyticsBeacon />
+        </AuthSessionProvider>
       </body>
     </html>
   );

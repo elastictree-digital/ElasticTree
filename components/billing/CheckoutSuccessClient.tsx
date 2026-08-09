@@ -63,7 +63,7 @@ export default function CheckoutSuccessClient() {
       </h1>
       <p className="text-lead">
         {ready
-          ? `${label} is unlocked for ${email || "your account"}. Use the same email to sign in to the studio.`
+          ? `${label} is unlocked for ${email || "your account"}. Sign in to the studio with that same Elastic Tree SSO email.`
           : failed
             ? "Payment succeeded but studio activation needs a moment. Contact support if access is missing after sign-in."
             : "PayU is confirming your payment. This usually takes a few seconds."}
@@ -73,7 +73,11 @@ export default function CheckoutSuccessClient() {
       )}
       <div className="flex flex-wrap gap-3 justify-center pt-2">
         <a
-          href={`${studio}${studio.includes("?") ? "&" : "?"}signin=1`}
+          href={
+            process.env.NEXT_PUBLIC_ET_SSO === "1"
+              ? `/accounts/signin?returnUrl=${encodeURIComponent(studio)}`
+              : `${studio}${studio.includes("?") ? "&" : "?"}signin=1`
+          }
           className="btn-primary btn-glow"
         >
           Launch Studio

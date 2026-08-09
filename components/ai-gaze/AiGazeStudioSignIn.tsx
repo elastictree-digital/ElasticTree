@@ -5,6 +5,16 @@ import { X } from "lucide-react";
 import { AI_GAZE_STUDIO_URL } from "@/lib/ai-gaze";
 
 export function openAiGazeDashboard() {
+  const SSO_ON = process.env.NEXT_PUBLIC_ET_SSO === "1";
+  if (SSO_ON) {
+    const accounts = (
+      process.env.NEXT_PUBLIC_SITE_URL || "https://www.elastictree.com"
+    ).replace(/\/$/, "");
+    window.location.assign(
+      `${accounts}/accounts/signin?returnUrl=${encodeURIComponent(AI_GAZE_STUDIO_URL)}`,
+    );
+    return;
+  }
   const url = new URL(AI_GAZE_STUDIO_URL);
   url.searchParams.set("signin", "1");
   window.location.assign(url.toString());
@@ -16,6 +26,8 @@ export function AiGazeSignInForm({
   onSuccess?: () => void;
   inputId?: string;
 }) {
+  const SSO_ON = process.env.NEXT_PUBLIC_ET_SSO === "1";
+
   function go() {
     onSuccess?.();
     openAiGazeDashboard();
@@ -27,8 +39,9 @@ export function AiGazeSignInForm({
         Sign in to AI Gaze Studio
       </p>
       <p className="text-body-sm text-slate-400 mb-5">
-        Sign in with your email and password on the studio — same access pattern as
-        DataWiz, QualView, and TScribe.
+        {SSO_ON
+          ? "Sign in once with Google, Microsoft, LinkedIn, or email. Use the same email as PayU checkout."
+          : "Sign in with your email and password on the studio — same access pattern as DataWiz, QualView, and TScribe."}
       </p>
 
       <button
@@ -36,7 +49,7 @@ export function AiGazeSignInForm({
         onClick={go}
         className="btn-primary btn-glow w-full justify-center"
       >
-        Continue →
+        {SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →"}
       </button>
 
       <p className="text-center text-xs text-slate-500 mt-4">

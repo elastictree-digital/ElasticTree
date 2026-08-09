@@ -135,8 +135,9 @@ export default function PayUCheckoutButton({
             </h2>
             <p className="text-body-sm text-slate-400 mb-5">
               {formatInr(amountInr)}
-              {period === "yearly" ? " / year" : " / month"} prepaid via PayU. Use the same email
-              for Studio sign-in so we can unlock your plan.
+              {period === "yearly" ? " / year" : " / month"} prepaid via PayU. Use the{" "}
+              <strong className="text-slate-200 font-semibold">same email</strong> as your
+              Elastic Tree Studio SSO sign-in so we can unlock your plan.
             </p>
 
             <form id={formId} onSubmit={startCheckout} className="space-y-3">
@@ -155,7 +156,7 @@ export default function PayUCheckoutButton({
               </label>
               <label className="block text-left">
                 <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-slate-400">
-                  Studio login email
+                  Studio SSO email
                 </span>
                 <input
                   required
