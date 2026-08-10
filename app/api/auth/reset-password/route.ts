@@ -1,6 +1,14 @@
 import { resetWithToken } from "@/lib/auth/reset";
+import { clientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
+  const ip = clientIp(request);
+  const limited = await rateLimit(`auth-reset:${ip}`, {
+    limit: 10,
+    windowMs: 15 * 60_000,
+  });
+  if (!limited.success) return tooManyRequests(limited.resetMs);
+
   const body = (await request.json().catch(() => ({}))) as {
     token?: string;
     password?: string;

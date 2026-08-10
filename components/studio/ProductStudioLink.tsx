@@ -53,9 +53,19 @@ export function openStudio(studioUrl: string) {
     const accounts = (
       process.env.NEXT_PUBLIC_SITE_URL || "https://www.elastictree.com"
     ).replace(/\/$/, "");
-    const returnUrl = studioUrl;
+    // Prefer bridge when already on elastictree.com (e.g. /accounts) so studios
+    // receive et_bridge without bouncing through the sign-in screen again.
+    const onAccountsOrigin =
+      typeof window !== "undefined" &&
+      window.location.origin.replace(/\/$/, "") === accounts;
+    if (onAccountsOrigin) {
+      window.location.assign(
+        `/api/auth/bridge?returnUrl=${encodeURIComponent(studioUrl)}`,
+      );
+      return;
+    }
     window.location.assign(
-      `${accounts}/accounts/signin?returnUrl=${encodeURIComponent(returnUrl)}`,
+      `${accounts}/accounts/signin?returnUrl=${encodeURIComponent(studioUrl)}`,
     );
     return;
   }

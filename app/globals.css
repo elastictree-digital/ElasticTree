@@ -1670,3 +1670,28 @@ textarea.input-field {
   min-height: 9rem;
 }
 
+/* ─── Accounts auth ─── */
+.accounts-auth-input {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 0 0.85rem;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.28);
+  background: transparent;
+  color: #f8fafc;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.accounts-auth-input:focus {
+  border-bottom-color: var(--amber);
+  box-shadow: 0 1px 0 0 var(--amber);
+}
+.accounts-auth-input::placeholder {
+  color: rgba(148, 163, 184, 0.55);
+}
+
+

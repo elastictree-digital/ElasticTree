@@ -1,6 +1,7 @@
 import { getSku } from "@/lib/billing/catalog";
 import { buildPayUForm, isPayUConfigured } from "@/lib/billing/payu";
 import { upsertOrder } from "@/lib/billing/orders";
+import { clientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 
 type CreateBody = {
   sku?: string;
@@ -16,6 +17,13 @@ export async function POST(request: Request) {
       { status: 503 },
     );
   }
+
+  const ip = clientIp(request);
+  const limited = await rateLimit(`payu-create:${ip}`, {
+    limit: 10,
+    windowMs: 15 * 60_000,
+  });
+  if (!limited.success) return tooManyRequests(limited.resetMs);
 
   let body: CreateBody;
   try {

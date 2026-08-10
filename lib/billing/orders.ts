@@ -17,12 +17,29 @@ export type PayUOrderRecord = {
 type Store = { orders: PayUOrderRecord[] };
 
 const KEY_PREFIX = "payu:order:";
+const EMAIL_INDEX_PREFIX = "payu:email:";
 
 function redisFromEnv(): Redis | null {
   const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
   const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
   if (!url || !token) return null;
   return new Redis({ url, token });
+}
+
+function emailIndexKey(email: string): string {
+  return `${EMAIL_INDEX_PREFIX}${email.trim().toLowerCase()}`;
+}
+
+async function indexOrderEmail(
+  redis: Redis,
+  email: string,
+  txnid: string,
+): Promise<void> {
+  const normalized = email.trim().toLowerCase();
+  if (!normalized.includes("@") || !txnid) return;
+  // Keep email→txnid set aligned with order TTL (90 days)
+  await redis.sadd(emailIndexKey(normalized), txnid);
+  await redis.expire(emailIndexKey(normalized), 60 * 60 * 24 * 90);
 }
 
 function dataPath(): string {
@@ -78,6 +95,7 @@ export async function upsertOrder(
         };
     // 90 days retention
     await redis.set(key, next, { ex: 60 * 60 * 24 * 90 });
+    await indexOrderEmail(redis, next.email, next.txnid);
     return next;
   }
 
@@ -118,4 +136,29 @@ export async function getOrder(txnid: string): Promise<PayUOrderRecord | undefin
 export async function alreadyFulfilled(txnid: string): Promise<boolean> {
   const o = await getOrder(txnid);
   return o?.status === "fulfilled";
+}
+
+/** Orders for an account email (newest first). Uses Redis set index or file scan. */
+export async function listOrdersByEmail(email: string): Promise<PayUOrderRecord[]> {
+  const normalized = email.trim().toLowerCase();
+  if (!normalized.includes("@")) return [];
+
+  const redis = redisFromEnv();
+  if (redis) {
+    const txnids = await redis.smembers(emailIndexKey(normalized));
+    if (!txnids.length) return [];
+    const rows = await Promise.all(
+      txnids.map(async (txnid) => {
+        const row = await redis.get<PayUOrderRecord>(orderKey(String(txnid)));
+        return row ?? null;
+      }),
+    );
+    return rows
+      .filter((r): r is PayUOrderRecord => Boolean(r && r.email.trim().toLowerCase() === normalized))
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  }
+
+  return readFileStore()
+    .orders.filter((o) => o.email.trim().toLowerCase() === normalized)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }

@@ -4,7 +4,7 @@ import AccountsSignInClient from "@/components/auth/AccountsSignInClient";
 
 export const metadata: Metadata = {
   title: "Sign in",
-  description: "Sign in to Elastic Tree Studios with Google, Microsoft, LinkedIn, or email.",
+  description: "Sign in to Elastic Tree Studios with Google or email.",
   robots: { index: false, follow: false },
 };
 

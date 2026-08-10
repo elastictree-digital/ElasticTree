@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import AccountsAuthShell from "@/components/auth/AccountsAuthShell";
 
 export default function ForgotPasswordClient() {
   const [email, setEmail] = useState("");
@@ -34,17 +35,20 @@ export default function ForgotPasswordClient() {
   }
 
   return (
-    <div className="page-content max-w-md mx-auto section-py-compact">
-      <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-[var(--teal)] mb-3">
-        Elastic Tree Accounts
-      </p>
-      <h1 className="font-display font-black text-display-md text-white mb-2">Forgot password</h1>
-      <p className="text-body-sm text-slate-400 mb-6">
+    <AccountsAuthShell
+      footer={
+        <Link href="/accounts/signin" className="text-[var(--teal)] hover:text-[var(--teal-bright)]">
+          Back to sign in
+        </Link>
+      }
+    >
+      <p className="font-display text-xl text-white/90 tracking-tight mb-2">Forgot password</p>
+      <p className="text-sm text-slate-400 mb-6">
         Enter your account email and we&apos;ll send a reset link.
       </p>
-      <form onSubmit={onSubmit} className="space-y-3">
+      <form onSubmit={onSubmit} className="space-y-4">
         <label className="block text-left">
-          <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-slate-400">
+          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-slate-500">
             Email
           </span>
           <input
@@ -52,17 +56,17 @@ export default function ForgotPasswordClient() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-[#0a1f4a]/60 px-3 py-2.5 text-white text-sm outline-none focus:border-[var(--amber)]/60"
+            className="accounts-auth-input mt-1.5"
             autoComplete="email"
           />
         </label>
         {error && (
-          <p className="text-sm text-rose-300" role="alert">
+          <p className="text-sm text-[#f5a8a0]" role="alert">
             {error}
           </p>
         )}
         {message && (
-          <p className="text-sm text-teal-300" role="status">
+          <p className="text-sm text-[var(--teal-bright)]" role="status">
             {message}
           </p>
         )}
@@ -78,11 +82,6 @@ export default function ForgotPasswordClient() {
           {busy ? "Sending…" : "Send reset link"}
         </button>
       </form>
-      <p className="text-center text-xs text-slate-500 mt-5">
-        <Link href="/accounts/signin" className="text-[var(--amber)] hover:underline">
-          Back to sign in
-        </Link>
-      </p>
-    </div>
+    </AccountsAuthShell>
   );
 }

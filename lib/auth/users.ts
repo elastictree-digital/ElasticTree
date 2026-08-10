@@ -28,6 +28,10 @@ function redis(): Redis | null {
 function filePath() {
   const override = process.env.ET_AUTH_USERS_PATH?.trim();
   if (override) return override;
+  // Vercel serverless FS is read-only except /tmp — local uses .data/
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return path.join("/tmp", "et-users.json");
+  }
   return path.join(process.cwd(), ".data", "et-users.json");
 }
 
@@ -43,9 +47,14 @@ function readFile(): FileStore {
 }
 
 function writeFile(store: FileStore) {
-  const p = filePath();
-  mkdirSync(path.dirname(p), { recursive: true });
-  writeFileSync(p, JSON.stringify(store, null, 2), "utf8");
+  try {
+    const p = filePath();
+    mkdirSync(path.dirname(p), { recursive: true });
+    writeFileSync(p, JSON.stringify(store, null, 2), "utf8");
+  } catch (err) {
+    // Ephemeral FS can fail; JWT session still works without durable user rows.
+    console.error("[et-auth] user store write failed", err);
+  }
 }
 
 export function hashPassword(password: string): string {
@@ -167,6 +176,13 @@ export async function setPassword(email: string, password: string): Promise<bool
   return true;
 }
 
+function bridgeFilePath() {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return path.join("/tmp", "bridge-codes.json");
+  }
+  return path.join(process.cwd(), ".data", "bridge-codes.json");
+}
+
 /** Short-lived bridge codes for studios that cannot read the parent cookie (e.g. AI Gaze). */
 export async function issueBridgeCode(email: string): Promise<string> {
   const code = randomBytes(24).toString("hex");
@@ -176,7 +192,7 @@ export async function issueBridgeCode(email: string): Promise<string> {
     await r.set(`et:bridge:${code}`, payload, { ex: 300 });
     return code;
   }
-  const p = path.join(process.cwd(), ".data", "bridge-codes.json");
+  const p = bridgeFilePath();
   mkdirSync(path.dirname(p), { recursive: true });
   let map: Record<string, typeof payload> = {};
   try {
@@ -198,7 +214,7 @@ export async function consumeBridgeCode(code: string): Promise<string | null> {
     if (payload.exp < Date.now()) return null;
     return payload.email;
   }
-  const p = path.join(process.cwd(), ".data", "bridge-codes.json");
+  const p = bridgeFilePath();
   try {
     if (!existsSync(p)) return null;
     const map = JSON.parse(readFileSync(p, "utf8")) as Record<

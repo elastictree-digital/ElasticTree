@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import AccountsAuthShell from "@/components/auth/AccountsAuthShell";
 
 export default function ResetPasswordClient() {
   const params = useSearchParams();
@@ -33,24 +34,27 @@ export default function ResetPasswordClient() {
   }
 
   return (
-    <div className="page-content max-w-md mx-auto section-py-compact">
-      <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-[var(--teal)] mb-3">
-        Elastic Tree Accounts
-      </p>
-      <h1 className="font-display font-black text-display-md text-white mb-2">Reset password</h1>
+    <AccountsAuthShell
+      footer={
+        <Link href="/accounts/signin" className="text-[var(--teal)] hover:text-[var(--teal-bright)]">
+          Back to sign in
+        </Link>
+      }
+    >
+      <p className="font-display text-xl text-white/90 tracking-tight mb-4">Reset password</p>
       {!token ? (
-        <p className="text-body-sm text-rose-300">Missing reset token. Request a new link.</p>
+        <p className="text-sm text-[#f5a8a0]">Missing reset token. Request a new link.</p>
       ) : done ? (
-        <p className="text-body-sm text-teal-300 mb-4">
+        <p className="text-sm text-[var(--teal-bright)]">
           Password updated.{" "}
           <Link href="/accounts/signin" className="text-[var(--amber)] underline">
             Sign in
           </Link>
         </p>
       ) : (
-        <form onSubmit={onSubmit} className="space-y-3 mt-4">
+        <form onSubmit={onSubmit} className="space-y-4">
           <label className="block text-left">
-            <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-slate-400">
+            <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-slate-500">
               New password
             </span>
             <input
@@ -59,12 +63,12 @@ export default function ResetPasswordClient() {
               minLength={8}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-white/10 bg-[#0a1f4a]/60 px-3 py-2.5 text-white text-sm outline-none focus:border-[var(--amber)]/60"
+              className="accounts-auth-input mt-1.5"
               autoComplete="new-password"
             />
           </label>
           {error && (
-            <p className="text-sm text-rose-300" role="alert">
+            <p className="text-sm text-[#f5a8a0]" role="alert">
               {error}
             </p>
           )}
@@ -73,11 +77,6 @@ export default function ResetPasswordClient() {
           </button>
         </form>
       )}
-      <p className="text-center text-xs text-slate-500 mt-5">
-        <Link href="/accounts/signin" className="hover:underline">
-          Back to sign in
-        </Link>
-      </p>
-    </div>
+    </AccountsAuthShell>
   );
 }

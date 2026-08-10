@@ -1,8 +1,16 @@
 import { createResetToken } from "@/lib/auth/reset";
+import { clientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 
 const OK = { ok: true, message: "If an account exists for that email, we sent a reset link." };
 
 export async function POST(request: Request) {
+  const ip = clientIp(request);
+  const limited = await rateLimit(`auth-forgot:${ip}`, {
+    limit: 5,
+    windowMs: 15 * 60_000,
+  });
+  if (!limited.success) return tooManyRequests(limited.resetMs);
+
   const body = (await request.json().catch(() => ({}))) as { email?: string };
   const email = body.email?.trim().toLowerCase() ?? "";
   if (!email.includes("@")) {

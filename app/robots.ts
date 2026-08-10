@@ -7,6 +7,10 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       // Hidden pilots — path-proxied, not marketed
       disallow: [
+        "/accounts",
+        "/accounts/",
+        "/studio",
+        "/studio/",
         "/ethos-pulse",
         "/ethos-pulse/",
         "/tscribe",

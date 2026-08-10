@@ -102,20 +102,31 @@ export const authConfig = {
       const email = user.email?.trim().toLowerCase();
       if (!email) return false;
       if (account?.provider && account.provider !== "credentials") {
-        await upsertOAuthUser({
-          email,
-          name: user.name,
-          provider: account.provider,
-        });
+        try {
+          await upsertOAuthUser({
+            email,
+            name: user.name,
+            provider: account.provider,
+          });
+        } catch (err) {
+          // Do not AccessDenied — JWT session can still be issued.
+          console.error("[auth] upsertOAuthUser failed", err);
+        }
       }
       return true;
     },
     async jwt({ token, user, account }) {
       if (user?.email) {
-        const u = await getUserByEmail(user.email);
-        token.email = user.email;
-        token.sub = u?.id ?? user.id;
-        token.name = user.name ?? u?.name;
+        try {
+          const u = await getUserByEmail(user.email);
+          token.email = user.email;
+          token.sub = u?.id ?? user.id;
+          token.name = user.name ?? u?.name;
+        } catch {
+          token.email = user.email;
+          token.sub = user.id;
+          token.name = user.name;
+        }
       }
       if (account?.provider) {
         token.provider = account.provider;
