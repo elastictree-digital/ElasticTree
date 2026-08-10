@@ -22,6 +22,8 @@ type Props = {
   variant?: "primary" | "secondary";
   className?: string;
   label?: string;
+  /** Overrides “/ month” or “/ year” in the checkout dialog (e.g. hour banks). */
+  chargeHint?: string;
 };
 
 export default function PayUCheckoutButton({
@@ -33,6 +35,7 @@ export default function PayUCheckoutButton({
   variant = "primary",
   className = "",
   label,
+  chargeHint,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [firstname, setFirstname] = useState("");
@@ -135,7 +138,12 @@ export default function PayUCheckoutButton({
             </h2>
             <p className="text-body-sm text-slate-400 mb-5">
               {formatInr(amountInr)}
-              {period === "yearly" ? " / year" : " / month"} prepaid via PayU. Use the{" "}
+              {chargeHint
+                ? ` · ${chargeHint}`
+                : period === "yearly"
+                  ? " / year"
+                  : " / month"}{" "}
+              via PayU. Use the{" "}
               <strong className="text-slate-200 font-semibold">same email</strong> as your
               Elastic Tree Studio SSO sign-in so we can unlock your plan.
             </p>

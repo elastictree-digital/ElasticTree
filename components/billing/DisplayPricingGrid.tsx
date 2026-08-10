@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Check, Globe2 } from "lucide-react";
+import PayUCheckoutButton from "@/components/billing/PayUCheckoutButton";
+import type { BillingPeriod, BillingProduct } from "@/lib/billing/catalog";
 import {
   FX_APPRECIATION,
   PRICING_COUNTRIES,
@@ -24,6 +26,12 @@ export type DisplayPricingPlan = {
   href?: string;
   /** Base INR amount for FX conversion. Omit for Custom / Included. */
   amountInr?: number | null;
+  /** When set, CTA opens PayU checkout instead of mailto. */
+  payuSku?: string;
+  payuProduct?: BillingProduct;
+  payuPeriod?: BillingPeriod;
+  /** Dialog copy for packs (e.g. "2 audio hours · prepaid"). */
+  payuChargeHint?: string;
 };
 
 type Props = {
@@ -100,10 +108,10 @@ export default function DisplayPricingGrid({
 
   const intlNote = useMemo(() => {
     if (country.currency === "INR") {
-      return "Paying in INR · exclusive of GST";
+      return "Paying in INR · exclusive of GST · checkout via PayU";
     }
     const pct = Math.round(FX_APPRECIATION * 100);
-    return `${country.currency} prices = INR converted at indicative FX + ${pct}% international appreciation · exclusive of GST`;
+    return `${country.currency} shown for reference (INR ÷ FX × ${pct}% intl) · PayU charges INR · exclusive of GST`;
   }, [country]);
 
   return (
@@ -139,6 +147,9 @@ export default function DisplayPricingGrid({
             plan.price.toLowerCase() !== "included";
 
           const money = convertible ? displayMoney(plan.amountInr!, country) : null;
+          const usePayu =
+            Boolean(plan.payuSku && plan.payuProduct && plan.amountInr && plan.amountInr > 0);
+
           const href = convertible
             ? quoteMailto({
                 product: productName,
@@ -148,6 +159,14 @@ export default function DisplayPricingGrid({
                 baseHref: plan.href ?? defaultMailto,
               })
             : (plan.href ?? defaultMailto);
+
+          const ctaFallback =
+            plan.ctaLabel ??
+            (plan.price.toLowerCase().includes("custom")
+              ? "Talk to Sales"
+              : money?.isInternational
+                ? `Enquire in ${money.currency}`
+                : "Request quote");
 
           return (
             <div
@@ -185,19 +204,35 @@ export default function DisplayPricingGrid({
                   </li>
                 ))}
               </ul>
-              <a
-                href={href}
-                className={
-                  plan.featured ? "btn-primary w-full justify-center" : "btn-secondary w-full justify-center"
-                }
-              >
-                {plan.ctaLabel ??
-                  (plan.price.toLowerCase().includes("custom")
-                    ? "Talk to Sales"
-                    : money?.isInternational
-                      ? `Pay in ${money.currency}`
-                      : "Request quote")}
-              </a>
+              {usePayu ? (
+                <PayUCheckoutButton
+                  sku={plan.payuSku!}
+                  product={plan.payuProduct!}
+                  planLabel={plan.name}
+                  amountInr={plan.amountInr!}
+                  period={plan.payuPeriod ?? "monthly"}
+                  variant={plan.featured ? "primary" : "secondary"}
+                  className="w-full justify-center"
+                  label={
+                    plan.ctaLabel ??
+                    (plan.featured
+                      ? `Subscribe · ${formatInrShort(plan.amountInr!)}`
+                      : `Pay with PayU · ${formatInrShort(plan.amountInr!)}`)
+                  }
+                  chargeHint={plan.payuChargeHint}
+                />
+              ) : (
+                <a
+                  href={href}
+                  className={
+                    plan.featured
+                      ? "btn-primary w-full justify-center"
+                      : "btn-secondary w-full justify-center"
+                  }
+                >
+                  {ctaFallback}
+                </a>
+              )}
             </div>
           );
         })}
@@ -206,9 +241,13 @@ export default function DisplayPricingGrid({
         <p className="text-center text-body-sm text-slate-500 mt-8">{footnote}</p>
       ) : null}
       <p className="text-center text-[11px] text-slate-600 mt-3">
-        International checkout quotes use indicative FX and include {Math.round(FX_APPRECIATION * 100)}%
-        appreciation vs INR. Final invoice may settle in INR or your local currency.
+        PayU checkout settles in INR. International display prices use indicative FX and include{" "}
+        {Math.round(FX_APPRECIATION * 100)}% appreciation vs INR.
       </p>
     </div>
   );
+}
+
+function formatInrShort(amount: number): string {
+  return `₹${amount.toLocaleString("en-IN")}`;
 }

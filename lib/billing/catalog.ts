@@ -1,12 +1,12 @@
 /** Central INR plan catalog for PayU checkout. Amounts are authoritative — never trust the client.
 
-Marketing pages now use quote-led rate cards (DisplayPricingGrid). These SKUs remain for
-legacy checkout links and fixed pack purchases that still map cleanly to PayU.
+Marketing grids can open PayU via DisplayPricingGrid when a plan sets payuSku.
+These SKUs are the source of truth for create / return / webhook fulfill.
 */
 
 export type BillingProduct = "tscribe" | "aigaze" | "qualview" | "ethos";
 export type BillingPeriod = "monthly" | "yearly";
-export type BillingPlan = "starter" | "growth" | "expert" | "single" | "pack10";
+export type BillingPlan = "starter" | "growth" | "expert" | "single" | "pack10" | "agency";
 
 export type CatalogSku = {
   sku: string;
@@ -106,15 +106,15 @@ export const BILLING_CATALOG: CatalogSku[] = [
     studioPath: "/qualview",
     fulfillEnvKey: "QUALVIEW_FULFILL_URL",
   },
-  // TScribe — 1 audio-hour packs (standard / volume)
+  // TScribe — hour banks (Lite 2h · Studio 20h · Agency 50h/mo)
   {
     sku: "tscribe.starter.monthly",
     product: "tscribe",
     plan: "starter",
     period: "monthly",
-    amountInr: 200,
-    label: "TScribe Standard (1 audio hour)",
-    productInfo: "TScribe 1 Hour",
+    amountInr: 275,
+    label: "TScribe Lite (2 audio hours)",
+    productInfo: "TScribe Lite 2 Hours",
     studioPath: "/TSCRIBE",
     fulfillEnvKey: "TSCRIBE_FULFILL_URL",
   },
@@ -123,9 +123,20 @@ export const BILLING_CATALOG: CatalogSku[] = [
     product: "tscribe",
     plan: "growth",
     period: "monthly",
-    amountInr: 100,
-    label: "TScribe Volume (1 audio hour)",
-    productInfo: "TScribe Volume Hour",
+    amountInr: 2000,
+    label: "TScribe Studio (20 audio hours)",
+    productInfo: "TScribe Studio 20 Hours",
+    studioPath: "/TSCRIBE",
+    fulfillEnvKey: "TSCRIBE_FULFILL_URL",
+  },
+  {
+    sku: "tscribe.agency.monthly",
+    product: "tscribe",
+    plan: "agency",
+    period: "monthly",
+    amountInr: 4999,
+    label: "TScribe Agency (50 audio hours / mo)",
+    productInfo: "TScribe Agency 50 Hours",
     studioPath: "/TSCRIBE",
     fulfillEnvKey: "TSCRIBE_FULFILL_URL",
   },

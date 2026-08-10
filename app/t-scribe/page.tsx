@@ -138,8 +138,8 @@ export default function TScribePage() {
         <div className="page-content">
           <SectionHeader
             label="Pricing"
-            title="TScribe™ rate card"
-            subtitle="Per-unit pricing · No minimum commitment · All prices exclusive of GST"
+            title="TScribe™ hour banks"
+            subtitle="Lite · Studio · Agency — subscribe via PayU · Overage ₹150/hr · Exclusive of GST"
             className="mb-10"
           />
           <DisplayPricingGrid
@@ -151,10 +151,14 @@ export default function TScribePage() {
               blurb: plan.blurb,
               features: plan.features,
               featured: plan.featured,
-              amountInr: plan.amountInr ?? null,
-              href: `mailto:sunilmukkath@elastictree.com?subject=TScribe%20${encodeURIComponent(plan.name)}`,
+              amountInr: plan.amountInr,
+              ctaLabel: plan.ctaLabel,
+              payuSku: plan.payuSku,
+              payuProduct: "tscribe" as const,
+              payuPeriod: "monthly" as const,
+              payuChargeHint: plan.payuChargeHint,
             }))}
-            footnote="Base prices in INR, exclusive of GST · Pay for what you use · Bundled free with QualView sessions · Select your country above to pay in local currency (+20% intl)"
+            footnote="Base prices in INR, exclusive of GST · PayU unlocks your studio for the same email · Lite/Studio packs expire in 90 days · Bundled free with QualView sessions · Enterprise & API on request"
           />
         </div>
       </section>
