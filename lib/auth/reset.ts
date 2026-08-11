@@ -26,6 +26,11 @@ export async function createResetToken(email: string): Promise<string | null> {
     await r.set(`et:reset:${tokenHash}`, { email: user.email, expiresAt }, { ex: 3600 });
     return token;
   }
+  // Vercel file/.data is not durable across instances — require Redis in production.
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    console.error("[ET Auth] Password reset requires Upstash Redis on Vercel");
+    return null;
+  }
   const p = filePath();
   mkdirSync(path.dirname(p), { recursive: true });
   let map: Record<string, { email: string; expiresAt: number }> = {};

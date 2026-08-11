@@ -31,6 +31,10 @@ export async function POST(request: Request) {
 
   if (!apiKey) {
     console.info("[ET Auth] Password reset (no RESEND_API_KEY):", resetUrl);
+    // Never return the reset URL in production JSON (leaks via client / logs proxies).
+    if (process.env.NODE_ENV === "production" || process.env.VERCEL === "1") {
+      return Response.json(OK);
+    }
     return Response.json({ ...OK, devResetUrl: resetUrl });
   }
 

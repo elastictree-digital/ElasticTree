@@ -1,4 +1,5 @@
 import { CONTACT_EMAIL } from "@/lib/contact";
+import { clientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 
 type ContactPayload = {
   name?: string;
@@ -9,6 +10,13 @@ type ContactPayload = {
 };
 
 export async function POST(request: Request) {
+  const ip = clientIp(request);
+  const limited = await rateLimit(`contact:${ip}`, {
+    limit: 5,
+    windowMs: 15 * 60_000,
+  });
+  if (!limited.success) return tooManyRequests(limited.resetMs);
+
   let body: ContactPayload;
   try {
     body = await request.json();

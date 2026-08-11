@@ -1,5 +1,6 @@
 import { fulfillProduct, verifyPayUCallback, type PayUCallbackPayload } from "@/lib/billing/payu";
 import { alreadyFulfilled, upsertOrder } from "@/lib/billing/orders";
+import { clientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 
 async function parsePayload(request: Request): Promise<PayUCallbackPayload> {
   const contentType = request.headers.get("content-type") ?? "";
@@ -23,6 +24,13 @@ async function parsePayload(request: Request): Promise<PayUCallbackPayload> {
 }
 
 export async function POST(request: Request) {
+  const ip = clientIp(request);
+  const limited = await rateLimit(`payu-webhook:${ip}`, {
+    limit: 120,
+    windowMs: 60_000,
+  });
+  if (!limited.success) return tooManyRequests(limited.resetMs);
+
   const payload = await parsePayload(request);
   const verified = verifyPayUCallback(payload);
 

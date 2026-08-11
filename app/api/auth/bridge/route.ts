@@ -36,7 +36,19 @@ export async function GET(request: Request) {
   }
 
   const email = session.user.email;
-  const code = await issueBridgeCode(email);
+  let code: string;
+  try {
+    code = await issueBridgeCode(email);
+  } catch (err) {
+    console.error("[ET Auth] issueBridgeCode failed", err);
+    return Response.json(
+      {
+        error:
+          "Sign-in bridge requires Upstash Redis in production. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.",
+      },
+      { status: 503 },
+    );
+  }
 
   if (format === "json") {
     return Response.json({
@@ -60,7 +72,6 @@ export async function GET(request: Request) {
       returnUrl.startsWith("/") ? `${site}${returnUrl}` : returnUrl,
     );
     dest.searchParams.set("et_bridge", code);
-    dest.searchParams.set("et_email", email);
     return Response.redirect(dest.toString());
   } catch {
     return Response.redirect(`${site}/accounts`);

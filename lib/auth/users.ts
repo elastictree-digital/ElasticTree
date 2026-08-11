@@ -183,6 +183,10 @@ function bridgeFilePath() {
   return path.join(process.cwd(), ".data", "bridge-codes.json");
 }
 
+function isServerlessRuntime(): boolean {
+  return Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+}
+
 /** Short-lived bridge codes for studios that cannot read the parent cookie (e.g. AI Gaze). */
 export async function issueBridgeCode(email: string): Promise<string> {
   const code = randomBytes(24).toString("hex");
@@ -191,6 +195,10 @@ export async function issueBridgeCode(email: string): Promise<string> {
   if (r) {
     await r.set(`et:bridge:${code}`, payload, { ex: 300 });
     return code;
+  }
+  // Serverless without Redis cannot share /tmp across instances — fail closed.
+  if (isServerlessRuntime()) {
+    throw new Error("UPSTASH_REDIS required for bridge codes on Vercel");
   }
   const p = bridgeFilePath();
   mkdirSync(path.dirname(p), { recursive: true });
@@ -213,6 +221,9 @@ export async function consumeBridgeCode(code: string): Promise<string | null> {
     await r.del(`et:bridge:${code}`);
     if (payload.exp < Date.now()) return null;
     return payload.email;
+  }
+  if (isServerlessRuntime()) {
+    return null;
   }
   const p = bridgeFilePath();
   try {

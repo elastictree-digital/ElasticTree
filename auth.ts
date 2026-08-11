@@ -4,12 +4,14 @@ import MicrosoftEntraID from "next-auth/providers/microsoft-entra-id";
 import LinkedIn from "next-auth/providers/linkedin";
 import Credentials from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
+import { headers } from "next/headers";
 import {
   getUserByEmail,
   upsertOAuthUser,
   verifyPassword,
   isSsoEnabled,
 } from "@/lib/auth/users";
+import { rateLimit } from "@/lib/rate-limit";
 
 function cookieDomain(): string | undefined {
   if (process.env.NODE_ENV !== "production") return undefined;
@@ -63,6 +65,27 @@ providers.push(
         .toLowerCase();
       const password = String(credentials?.password ?? "");
       if (!email.includes("@") || !password) return null;
+
+      let ip = "unknown";
+      try {
+        const h = await headers();
+        ip =
+          h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+          h.get("x-real-ip")?.trim() ||
+          "unknown";
+      } catch {
+        /* headers() unavailable outside request context */
+      }
+      const byIp = await rateLimit(`auth-signin:ip:${ip}`, {
+        limit: 30,
+        windowMs: 15 * 60_000,
+      });
+      const byEmail = await rateLimit(`auth-signin:email:${email}`, {
+        limit: 10,
+        windowMs: 15 * 60_000,
+      });
+      if (!byIp.success || !byEmail.success) return null;
+
       const user = await getUserByEmail(email);
       if (!user?.passwordHash) return null;
       if (!verifyPassword(password, user.passwordHash)) return null;
