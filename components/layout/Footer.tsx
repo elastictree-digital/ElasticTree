@@ -74,11 +74,15 @@ export default function Footer() {
       <div className="page-content section-py-tight">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 mb-12">
           <div className="md:col-span-5">
-            {isAiGaze ? (
-              <AiGazeLogo height={48} className="mb-5" />
-            ) : (
-              <ETLogo height={30} className="mb-5" />
-            )}
+            <div className="mb-5 flex items-center gap-3">
+              <ETLogo height={30} />
+              {isAiGaze ? (
+                <>
+                  <span aria-hidden className="hidden h-4 w-px bg-white/15 sm:block" />
+                  <AiGazeLogo height={36} className="hidden sm:block" />
+                </>
+              ) : null}
+            </div>
             <p className="text-body-sm max-w-sm mb-6">
               {isAiGaze
                 ? "Predictive eye tracking for packs, shelves, and ads — without hardware."
@@ -190,6 +194,12 @@ export default function Footer() {
                     : "Elastic Tree Research"}
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link
+              href="/security"
+              className="text-caption normal-case text-slate-400 hover:text-[var(--amber)] transition-colors"
+            >
+              Security
+            </Link>
             <Link
               href="/privacy"
               className="text-caption normal-case text-slate-400 hover:text-[var(--amber)] transition-colors"

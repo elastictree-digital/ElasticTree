@@ -231,8 +231,14 @@ export default function Navbar() {
       }`}
     >
       <nav className="page-content h-16 flex items-center justify-between gap-4">
-        <Link href={homeHref} className="relative z-10 shrink-0" aria-label={homeLabel}>
-          {isAiGaze ? <AiGazeLogo height={48} priority /> : <ETLogo height={28} priority />}
+        <Link href={homeHref} className="relative z-10 shrink-0 flex items-center gap-3" aria-label={homeLabel}>
+          <ETLogo height={28} priority />
+          {isAiGaze ? (
+            <>
+              <span aria-hidden className="hidden sm:block h-4 w-px bg-white/15" />
+              <AiGazeLogo height={40} priority className="hidden sm:block" />
+            </>
+          ) : null}
         </Link>
 
         <ul className="hidden lg:flex items-center gap-1">
