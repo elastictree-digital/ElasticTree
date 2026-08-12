@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Studio | Digital Products",
   description:
-    "Elastic Tree Studio — open AI Gaze, TScribe, QualView, DataWiz, Ethos Pulse, and Table Share from one place.",
+    "Elastic Tree Studio — open Survey Studio, AI Gaze, TScribe, QualView, DataWiz, Ethos Pulse, and Table Share from one place (test phase · hidden).",
   robots: {
     index: false,
     follow: false,

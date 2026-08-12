@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { Play, X } from "lucide-react";
 
-type ProductId = "ai-gaze" | "datawiz" | "qualview" | "tscribe" | "ethos-pulse";
+type ProductId =
+  | "ai-gaze"
+  | "datawiz"
+  | "qualview"
+  | "tscribe"
+  | "ethos-pulse"
+  | "survey-studio";
 
 const SSO_ON = process.env.NEXT_PUBLIC_ET_SSO === "1";
 
@@ -44,6 +50,13 @@ const PRODUCT_COPY: Record<
     blurb: SSO_ON
       ? "Sign in once with Google, Microsoft, LinkedIn, or email. Use the same email as PayU checkout."
       : "Continue to sign in or register with your email on Ethos Pulse.",
+    cta: SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →",
+  },
+  "survey-studio": {
+    title: "Open Survey Studio",
+    blurb: SSO_ON
+      ? "Sign in once with Google, Microsoft, LinkedIn, or email. Same Survey Studio engine as ET Scout."
+      : "Continue to Survey Studio — same engine as ET Scout Survey Studio.",
     cta: SSO_ON ? "Continue with Elastic Tree SSO →" : "Continue →",
   },
 };

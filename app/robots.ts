@@ -33,6 +33,8 @@ export default function robots(): MetadataRoute.Robots {
         "/data-wiz/",
         "/datawiz",
         "/datawiz/",
+        "/survey-studio",
+        "/survey-studio/",
       ],
     },
     sitemap: "https://www.elastictree.com/sitemap.xml",

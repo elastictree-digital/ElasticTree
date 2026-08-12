@@ -19,6 +19,8 @@ const siteLinks = [
   // AI Gaze nav tab hidden for now — page remains at /ai-gaze
   // QualView nav tab hidden for now — page remains at /Qual-view
   // DataWiz nav tab hidden for now — page remains at /data-wiz
+  // Survey Studio nav tab hidden for now — page remains at /survey-studio
+  // All studios stay out of public nav during test phase (/studio hub is noindex)
   { href: "/casestudies", label: "Case Studies" },
   { href: "/contact", label: "Contact" },
 ];

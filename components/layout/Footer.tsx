@@ -13,6 +13,8 @@ const siteNav = [
   // AI Gaze nav tab hidden for now — page remains at /ai-gaze
   // QualView nav tab hidden for now — page remains at /Qual-view
   // DataWiz nav tab hidden for now — page remains at /data-wiz
+  // Survey Studio nav tab hidden for now — page remains at /survey-studio
+  // All studios stay out of public nav during test phase
   { label: "Case Studies", href: "/casestudies" },
   { label: "Contact", href: "/contact" },
 ];

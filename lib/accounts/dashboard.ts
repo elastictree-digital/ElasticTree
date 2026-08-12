@@ -13,6 +13,7 @@ import { DATAWIZ_STUDIO_URL } from "@/lib/data-wiz";
 import { AI_GAZE_STUDIO_URL } from "@/lib/ai-gaze";
 import { ETHOS_PULSE_STUDIO_URL } from "@/lib/ethos-pulse";
 import { QUALVIEW_STUDIO_URL } from "@/lib/qual-view";
+import { SURVEY_STUDIO_URL } from "@/lib/survey-studio";
 import { TSCRIBE_STUDIO_URL } from "@/lib/t-scribe";
 
 export type ToolAccessLevel = "full" | "active" | "none";
@@ -20,7 +21,7 @@ export type ToolAccessLevel = "full" | "active" | "none";
 export type AccountTool = {
   id: string;
   name: string;
-  productKey?: BillingProduct | "datawiz";
+  productKey?: BillingProduct | "datawiz" | "survey-studio";
   blurb: string;
   studioUrl: string;
   /** Prefer this for Open — SSO bridge when enabled so studios get a session. */
@@ -54,7 +55,7 @@ export type AccountDashboard = {
 };
 
 const PRODUCT_META: Record<
-  BillingProduct | "datawiz",
+  BillingProduct | "datawiz" | "survey-studio",
   { name: string; blurb: string; overviewHref: string; studioUrl: string }
 > = {
   tscribe: {
@@ -86,6 +87,12 @@ const PRODUCT_META: Record<
     blurb: "Stub × banner crosstabs and Excel packs.",
     overviewHref: "/data-wiz",
     studioUrl: DATAWIZ_STUDIO_URL,
+  },
+  "survey-studio": {
+    name: "Survey Studio",
+    blurb: "Program and field native Elastic Tree surveys.",
+    overviewHref: "/survey-studio",
+    studioUrl: SURVEY_STUDIO_URL,
   },
 };
 
@@ -122,12 +129,12 @@ function accessLabel(level: ToolAccessLevel, isEmployee: boolean): string {
 }
 
 function planSummaryForProduct(
-  product: BillingProduct | "datawiz",
+  product: BillingProduct | "datawiz" | "survey-studio",
   fulfilled: PayUOrderRecord[],
   isEmployee: boolean,
 ): string {
   if (isEmployee) return "Elastic Tree staff · enterprise entitlements";
-  if (product === "datawiz") {
+  if (product === "datawiz" || product === "survey-studio") {
     return "Quote-led · contact for unlock";
   }
   const labels = fulfilled
@@ -158,7 +165,8 @@ export async function buildAccountDashboard(input: {
     byProduct.set(sku.product, list);
   }
 
-  const toolIds: Array<BillingProduct | "datawiz"> = [
+  const toolIds: Array<BillingProduct | "datawiz" | "survey-studio"> = [
+    "survey-studio",
     "tscribe",
     "qualview",
     "aigaze",
@@ -168,13 +176,17 @@ export async function buildAccountDashboard(input: {
 
   const tools: AccountTool[] = toolIds.map((id) => {
     const meta = PRODUCT_META[id];
-    const fulfilled = id === "datawiz" ? [] : byProduct.get(id) ?? [];
+    const fulfilled =
+      id === "datawiz" || id === "survey-studio" ? [] : byProduct.get(id) ?? [];
     const access: ToolAccessLevel = isEmployee
       ? "full"
       : fulfilled.length > 0
         ? "active"
         : "none";
-    const catalog = id === "datawiz" ? undefined : catalogEntryForProduct(id);
+    const catalog =
+      id === "datawiz" || id === "survey-studio"
+        ? undefined
+        : catalogEntryForProduct(id);
     const studioUrl =
       catalog != null ? studioUrlFor(catalog) : meta.studioUrl;
 

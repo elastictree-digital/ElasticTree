@@ -2,6 +2,7 @@ import { AI_GAZE_STUDIO_URL } from "@/lib/ai-gaze";
 import { DATAWIZ_STUDIO_URL } from "@/lib/data-wiz";
 import { ETHOS_PULSE_STUDIO_URL } from "@/lib/ethos-pulse";
 import { QUALVIEW_STUDIO_URL } from "@/lib/qual-view";
+import { SURVEY_STUDIO_URL } from "@/lib/survey-studio";
 import { TABLE_SHARE_DEMO_URL } from "@/lib/table-share";
 import { TSCRIBE_STUDIO_URL } from "@/lib/t-scribe";
 
@@ -11,7 +12,8 @@ export type StudioLaunchProduct =
   | "datawiz"
   | "qualview"
   | "tscribe"
-  | "ethos-pulse";
+  | "ethos-pulse"
+  | "survey-studio";
 
 export type StudioProductStatus = "live" | "pilot" | "soon";
 
@@ -38,8 +40,23 @@ export type StudioProduct = {
   };
 };
 
-/** Customer-facing studios on elastictree.com (hidden hub). */
+/** Customer-facing studios on elastictree.com (hidden hub — test phase). */
 export const studioProducts: StudioProduct[] = [
+  {
+    id: "survey-studio",
+    name: "Survey Studio",
+    mark: "™",
+    category: "Quantitative · Programming",
+    blurb:
+      "Draft, design, translate, and field native Elastic Tree surveys — same engine as ET Scout Survey Studio.",
+    accent: "#e8a820",
+    status: "pilot",
+    overviewHref: "/survey-studio",
+    launch: {
+      product: "survey-studio",
+      studioUrl: SURVEY_STUDIO_URL,
+    },
+  },
   {
     id: "ai-gaze",
     name: "AI Gaze",
