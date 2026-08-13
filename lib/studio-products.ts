@@ -129,7 +129,6 @@ export const studioProducts: StudioProduct[] = [
     launch: {
       product: "ethos-pulse",
       studioUrl: ETHOS_PULSE_STUDIO_URL,
-      label: "Launch Ethos Pulse",
     },
   },
   {
@@ -144,7 +143,7 @@ export const studioProducts: StudioProduct[] = [
     overviewHref: "/table-share",
     external: {
       href: TABLE_SHARE_DEMO_URL,
-      label: "Open demo",
+      label: "Open",
     },
   },
 ];

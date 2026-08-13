@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { Play } from "lucide-react";
 import ProductStudioLink from "@/components/studio/ProductStudioLink";
 import {
   studioProducts,
@@ -46,8 +46,8 @@ function ProductActions({ product }: { product: StudioProduct }) {
           rel="noopener noreferrer"
           className="btn-primary btn-glow text-sm px-5 py-2.5"
         >
+          <Play size={14} fill="currentColor" aria-hidden />
           {product.external.label}
-          <ExternalLink size={14} aria-hidden />
         </a>
       )}
       {product.overviewHref && (
