@@ -94,6 +94,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=etscout", sizes: "any" },
+      { url: "/favicon-32.png?v=etscout", type: "image/png", sizes: "32x32" },
+      { url: "/favicon.png?v=etscout", type: "image/png", sizes: "64x64" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png?v=etscout", sizes: "180x180" }],
+    shortcut: "/favicon.png?v=etscout",
+  },
 };
 
 export default function RootLayout({

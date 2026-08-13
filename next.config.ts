@@ -50,6 +50,9 @@ const nextConfig: NextConfig = {
       { source: "/services", destination: "/capabilities", permanent: true },
       { source: "/ai-capabilities", destination: "/capabilities", permanent: true },
       { source: "/about", destination: "/", permanent: true },
+      // Old tree-mark favicon paths — send cached browsers to the ET Scout icon.
+      { source: "/icon.svg", destination: "/favicon.png", permanent: false },
+      { source: "/apple-icon.svg", destination: "/apple-touch-icon.png", permanent: false },
       // Note: do not redirect /qual-view → /Qual-view — Vercel path matching
       // is case-insensitive and that redirect loops on /Qual-view itself.
     ];
