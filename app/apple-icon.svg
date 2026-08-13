@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
-  <rect width="180" height="180" rx="40" fill="#0a1f4a"/>
-  <path d="M90 28c-6.8 18-21.4 30.4-36.6 38.2 12.4 5 22.5 14.6 28.8 27.6-7.9-2.2-16.3-2.8-24.8-1.1 15.8 10.1 26.5 27.1 29.9 46.3 3.4-19.2 14.1-36.2 29.9-46.3-8.5-1.7-16.9-1.1-24.8 1.1 6.3-13 16.4-22.6 28.8-27.6C111.4 58.4 96.8 46 90 28z" fill="#e8a820"/>
-  <circle cx="90" cy="138" r="10" fill="#2dd4bf" opacity="0.9"/>
-  <path d="M90 115v20" stroke="#2dd4bf" stroke-width="6" stroke-linecap="round"/>
-  <text x="90" y="168" text-anchor="middle" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="14" font-weight="600" letter-spacing="3">ELASTIC TREE</text>
-</svg>
