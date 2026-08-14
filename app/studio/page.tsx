@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import PageHero from "@/components/ui/PageHero";
 import StudioProductGrid from "@/components/studio/StudioProductGrid";
 import { studioProducts } from "@/lib/studio-products";
@@ -21,16 +20,6 @@ export default function StudioPage() {
     <>
       <PageHero
         variant="home"
-        prefix={
-          <Image
-            src="/logo.png"
-            alt="Elastic Tree"
-            width={160}
-            height={36}
-            priority
-            className="h-8 w-auto mb-1"
-          />
-        }
         eyebrow="Product hub · Private"
         title={
           <>
