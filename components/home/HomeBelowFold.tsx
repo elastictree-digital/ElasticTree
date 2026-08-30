@@ -1,7 +1,6 @@
 import AboutSection from "@/components/home/AboutSection";
 import CapabilitiesShowcase from "@/components/home/CapabilitiesShowcase";
 import SpotlightServices from "@/components/home/SpotlightServices";
-import SecurityDataSection from "@/components/home/SecurityDataSection";
 import CaseStudiesPreview from "@/components/home/CaseStudiesPreview";
 import LeadershipTeam from "@/components/home/LeadershipTeam";
 
@@ -11,7 +10,6 @@ export default function HomeBelowFold() {
       <AboutSection />
       <CapabilitiesShowcase />
       <SpotlightServices />
-      <SecurityDataSection />
       <CaseStudiesPreview />
       <LeadershipTeam />
     </>
