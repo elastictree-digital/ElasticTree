@@ -25,6 +25,8 @@ function envOrigins(): string[] {
     "NEXT_PUBLIC_QUALVIEW_STUDIO_URL",
     "NEXT_PUBLIC_DATAWIZ_STUDIO_URL",
     "NEXT_PUBLIC_SURVEY_STUDIO_URL",
+    "NEXT_PUBLIC_ET_SCOUT_URL",
+    "ETSCOUT_ORIGIN",
     "ET_BRIDGE_ALLOWED_ORIGINS",
   ];
   const out: string[] = [];

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import path from "path";
 import {
+  ETSCOUT_SECURITY_HEADERS,
   QUALVIEW_SECURITY_HEADERS,
   SECURITY_HEADERS,
 } from "./lib/security-headers";
@@ -24,6 +25,11 @@ const DATAWIZ_ORIGIN =
   process.env.DATAWIZ_ORIGIN?.replace(/\/$/, "") ||
   "https://datawiz.up.railway.app";
 
+/** ET Scout — Railway app, proxied at /ET-Scout; collectors on et-scout.elastictree.com. */
+const ETSCOUT_ORIGIN =
+  process.env.ETSCOUT_ORIGIN?.replace(/\/$/, "") ||
+  "https://et-scout.up.railway.app";
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
@@ -40,7 +46,15 @@ const nextConfig: NextConfig = {
         headers: QUALVIEW_SECURITY_HEADERS,
       },
       {
-        source: "/((?!qualview(?:/|$)).*)",
+        source: "/ET-Scout",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/ET-Scout/:path*",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/((?!qualview(?:/|$)|ET-Scout(?:/|$)|et-scout(?:/|$)).*)",
         headers: SECURITY_HEADERS,
       },
     ];
@@ -94,6 +108,15 @@ const nextConfig: NextConfig = {
       {
         source: "/datawiz/:path*",
         destination: `${DATAWIZ_ORIGIN}/datawiz/:path*`,
+      },
+      // ET Scout (basePath /ET-Scout on Railway). Vercel paths are case-insensitive.
+      {
+        source: "/ET-Scout",
+        destination: `${ETSCOUT_ORIGIN}/ET-Scout`,
+      },
+      {
+        source: "/ET-Scout/:path*",
+        destination: `${ETSCOUT_ORIGIN}/ET-Scout/:path*`,
       },
     ];
   },

@@ -48,6 +48,20 @@ export const SECURITY_HEADERS = [
   { key: "Content-Security-Policy", value: CSP_BASE },
 ];
 
+/** ET Scout collectors need camera, mic, and GPS on /ET-Scout. */
+export const ETSCOUT_SECURITY_HEADERS = SECURITY_HEADERS.map((h) => {
+  if (h.key === "Permissions-Policy") {
+    return {
+      key: "Permissions-Policy",
+      value: "camera=(self), microphone=(self), geolocation=(self), payment=(self)",
+    };
+  }
+  if (h.key === "Content-Security-Policy") {
+    return { key: "Content-Security-Policy", value: CSP_QUALVIEW };
+  }
+  return h;
+});
+
 /** QualView needs camera/mic + LiveKit connect/media. */
 export const QUALVIEW_SECURITY_HEADERS = SECURITY_HEADERS.map((h) => {
   if (h.key === "Permissions-Policy") {
