@@ -109,6 +109,11 @@ const nextConfig: NextConfig = {
         source: "/datawiz/:path*",
         destination: `${DATAWIZ_ORIGIN}/datawiz/:path*`,
       },
+      // Absolute /scout-mark.png from the ET Scout SPA (before BASE_URL prefix).
+      {
+        source: "/scout-mark.png",
+        destination: `${ETSCOUT_ORIGIN}/ET-Scout/scout-mark.png`,
+      },
       // ET Scout (basePath /ET-Scout on Railway). Vercel paths are case-insensitive.
       {
         source: "/ET-Scout",
