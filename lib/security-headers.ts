@@ -25,6 +25,7 @@ const CSP_QUALVIEW = [
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https:",
   "media-src 'self' blob: https:",
+  "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com",
   "connect-src 'self' https: wss: blob:",
   "frame-ancestors 'self'",
   "form-action 'self'",
@@ -53,7 +54,8 @@ export const ETSCOUT_SECURITY_HEADERS = SECURITY_HEADERS.map((h) => {
   if (h.key === "Permissions-Policy") {
     return {
       key: "Permissions-Policy",
-      value: "camera=(self), microphone=(self), geolocation=(self), payment=(self)",
+      value:
+        "camera=(self), microphone=(self), geolocation=(self), payment=(self), autoplay=*, encrypted-media=*, fullscreen=*, picture-in-picture=*",
     };
   }
   if (h.key === "Content-Security-Policy") {
