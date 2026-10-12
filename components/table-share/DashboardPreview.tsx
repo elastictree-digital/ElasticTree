@@ -90,7 +90,7 @@ export default function DashboardPreview() {
             <TrendingUp size={15} className="text-[var(--teal)]" aria-hidden />
             From insight to impact — explore the full interactive dashboard.
           </p>
-          <TableShareDemoLink size="sm" label="Launch Demo" />
+          <TableShareDemoLink size="sm" label="Demo" />
         </div>
       </div>
     </div>

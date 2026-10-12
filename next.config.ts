@@ -30,6 +30,11 @@ const ETSCOUT_ORIGIN =
   process.env.ETSCOUT_ORIGIN?.replace(/\/$/, "") ||
   "https://et-scout.up.railway.app";
 
+/** Table Share app — proxied at /table-share/demo and /table-share/sign-in. */
+const TABLE_SHARE_ORIGIN =
+  process.env.TABLE_SHARE_ORIGIN?.replace(/\/$/, "") ||
+  "https://table-share-production.up.railway.app";
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
@@ -54,8 +59,41 @@ const nextConfig: NextConfig = {
         headers: ETSCOUT_SECURITY_HEADERS,
       },
       {
-        source: "/((?!qualview(?:/|$)|ET-Scout(?:/|$)|et-scout(?:/|$)).*)",
+        source:
+          "/((?!qualview(?:/|$)|ET-Scout(?:/|$)|et-scout(?:/|$)|table-share/(?:demo|sign-in|dashboard|api|_next)(?:/|$)).*)",
         headers: SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/demo",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/demo/:path*",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/sign-in",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/sign-in/:path*",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/dashboard",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/dashboard/:path*",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/api/:path*",
+        headers: ETSCOUT_SECURITY_HEADERS,
+      },
+      {
+        source: "/table-share/_next/:path*",
+        headers: ETSCOUT_SECURITY_HEADERS,
       },
     ];
   },
@@ -122,6 +160,44 @@ const nextConfig: NextConfig = {
       {
         source: "/ET-Scout/:path*",
         destination: `${ETSCOUT_ORIGIN}/ET-Scout/:path*`,
+      },
+      // Table Share app (basePath /table-share). Exact /table-share stays the marketing page.
+      {
+        source: "/table-share/demo",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/demo`,
+      },
+      {
+        source: "/table-share/demo/:path*",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/demo/:path*`,
+      },
+      {
+        source: "/table-share/sign-in",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/sign-in`,
+      },
+      {
+        source: "/table-share/sign-in/:path*",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/sign-in/:path*`,
+      },
+      {
+        source: "/table-share/dashboard",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/dashboard`,
+      },
+      {
+        source: "/table-share/dashboard/:path*",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/dashboard/:path*`,
+      },
+      {
+        source: "/table-share/api/:path*",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/api/:path*`,
+      },
+      {
+        source: "/table-share/_next/:path*",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/_next/:path*`,
+      },
+      {
+        source:
+          "/table-share/:file(elastictree_logo.webp|elastictree_logo.png|favicon.ico|favicon.png|favicon-32.png|apple-touch-icon.png|icon-192.png)",
+        destination: `${TABLE_SHARE_ORIGIN}/table-share/:file`,
       },
     ];
   },

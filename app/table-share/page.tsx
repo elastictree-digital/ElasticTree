@@ -37,10 +37,10 @@ export default function TableSharePage() {
         subtitle="Captures real, dish-level eating behaviour across urban India — mapped by occasion, effort, and frequency."
         actions={
           <>
-            <TableShareDemoLink label="Explore Demo" />
+            <TableShareDemoLink label="Demo" />
             <TableShareDemoLink
               variant="secondary"
-              label="Subscriber sign in"
+              label="Subscribe"
               href={TABLE_SHARE_SIGNIN_URL}
             />
             <Link href="/contact" className="btn-secondary">
@@ -194,10 +194,10 @@ export default function TableSharePage() {
             Table Share® isn't just data — it's your roadmap to staying relevant, responsive, and ahead in India's urban food market.
           </p>
           <div className="flex flex-wrap gap-3 pt-1">
-            <TableShareDemoLink label="Explore Demo" />
+            <TableShareDemoLink label="Demo" />
             <TableShareDemoLink
               variant="secondary"
-              label="Subscriber sign in"
+              label="Subscribe"
               href={TABLE_SHARE_SIGNIN_URL}
             />
             <Link href="/contact" className="btn-secondary">
@@ -206,7 +206,7 @@ export default function TableSharePage() {
           </div>
           <p className="text-body-sm flex items-center gap-2">
             <LayoutDashboard size={15} className="text-[var(--teal)]" aria-hidden />
-            Demo uses a sample extract. Subscribers sign in for the full dataset.
+            Demo opens a sample dashboard. Subscribe to sign in for the full dataset.
           </p>
         </div>
       </section>
