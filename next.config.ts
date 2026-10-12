@@ -65,7 +65,13 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/table-share/:path+",
-        headers: ETSCOUT_SECURITY_HEADERS,
+        headers: [
+          ...ETSCOUT_SECURITY_HEADERS,
+          // Hashed JS from a previous Railway deploy 404s if Vercel keeps HTML for a year.
+          { key: "Cache-Control", value: "private, no-cache, no-store, max-age=0, must-revalidate" },
+          { key: "CDN-Cache-Control", value: "no-store" },
+          { key: "Vercel-CDN-Cache-Control", value: "no-store" },
+        ],
       },
     ];
   },
