@@ -1,5 +1,8 @@
-/** Public demo URL for the Table Share® interactive dashboard app. */
-export const TABLE_SHARE_DEMO_URL = "https://table-share-production.up.railway.app/";
+/** Public demo (sample extract) for the Table Share® interactive dashboard. */
+export const TABLE_SHARE_DEMO_URL = "https://table-share-production.up.railway.app/demo";
+
+/** Subscriber sign-in for the full Samayal Raw Data Final extract. */
+export const TABLE_SHARE_SIGNIN_URL = "https://table-share-production.up.railway.app/";
 
 export const tableShareStats = [
   { val: "3,468", label: "Households", accent: "#2dd4bf" },

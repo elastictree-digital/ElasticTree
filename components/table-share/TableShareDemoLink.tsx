@@ -10,6 +10,7 @@ interface Props {
   className?: string;
   label?: string;
   showIcon?: boolean;
+  href?: string;
 }
 
 export default function TableShareDemoLink({
@@ -18,6 +19,7 @@ export default function TableShareDemoLink({
   className = "",
   label = "Explore Demo",
   showIcon = true,
+  href = TABLE_SHARE_DEMO_URL,
 }: Props) {
   const [showMobileNotice, setShowMobileNotice] = useState(false);
 
@@ -34,7 +36,7 @@ export default function TableShareDemoLink({
   return (
     <>
       <a
-        href={TABLE_SHARE_DEMO_URL}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}

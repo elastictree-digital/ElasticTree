@@ -6,6 +6,7 @@ import OccasionIcon, { occasionVariantFromName } from "@/components/ui/icons/Occ
 import TableShareDemoLink from "@/components/table-share/TableShareDemoLink";
 import DashboardPreview from "@/components/table-share/DashboardPreview";
 import {
+  TABLE_SHARE_SIGNIN_URL,
   tableShareStats,
   tableShareInsights,
   tableShareOccasions,
@@ -37,6 +38,11 @@ export default function TableSharePage() {
         actions={
           <>
             <TableShareDemoLink label="Explore Demo" />
+            <TableShareDemoLink
+              variant="secondary"
+              label="Subscriber sign in"
+              href={TABLE_SHARE_SIGNIN_URL}
+            />
             <Link href="/contact" className="btn-secondary">
               Book a Demo <ArrowRight size={16} />
             </Link>
@@ -189,13 +195,18 @@ export default function TableSharePage() {
           </p>
           <div className="flex flex-wrap gap-3 pt-1">
             <TableShareDemoLink label="Explore Demo" />
+            <TableShareDemoLink
+              variant="secondary"
+              label="Subscriber sign in"
+              href={TABLE_SHARE_SIGNIN_URL}
+            />
             <Link href="/contact" className="btn-secondary">
               Book a Demo <ArrowRight size={16} />
             </Link>
           </div>
           <p className="text-body-sm flex items-center gap-2">
             <LayoutDashboard size={15} className="text-[var(--teal)]" aria-hidden />
-            Opens the interactive Table Share® dashboard in a new tab
+            Demo uses a sample extract. Subscribers sign in for the full dataset.
           </p>
         </div>
       </section>
